@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), var(--font-noto-kr), system-ui, sans-serif;
+
+  --color-navy-50: #eef4ff;
+  --color-navy-100: #dbe7ff;
+  --color-navy-200: #b8ceff;
+  --color-navy-300: #8bacff;
+  --color-navy-400: #5b83f7;
+  --color-navy-500: #2f5ce8;
+  --color-navy-600: #1b47cf;
+  --color-navy-700: #1640a8;
+  --color-navy-800: #0f2f76;
+  --color-navy-900: #002f69;
+  --color-navy-950: #041634;
+
+  --color-brand-400: #4d8dff;
+  --color-brand-500: #1864c3;
+  --color-brand-600: #1054ab;
+
+  --color-ice-50: #f6f9fd;
+  --color-ice-100: #eef4fb;
+  --color-ice-200: #dfe9f6;
+
+  --color-accent-cyan: #7df3ff;
+  --color-accent-coral: #ff6b6b;
+
+  --shadow-card: 0 1px 2px rgb(4 22 52 / 0.04), 0 12px 32px -12px rgb(4 22 52 / 0.16);
+  --shadow-card-hover: 0 2px 4px rgb(4 22 52 / 0.06), 0 24px 48px -16px rgb(4 22 52 / 0.24);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0b1120;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    /* Korean copy must wrap on spaces, never inside a word. */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* Korean text needs a little more air than the Latin default. */
+  p,
+  li,
+  dd {
+    line-height: 1.8;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-navy-900);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+
+  @variant sm {
+    padding-inline: 2rem;
+  }
+
+  @variant lg {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Scroll reveal: hidden until the observer marks the element visible. */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 0.7s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
