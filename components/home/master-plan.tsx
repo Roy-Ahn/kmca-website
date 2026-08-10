@@ -77,7 +77,7 @@ export function MasterPlan() {
 
           <Reveal delay={120}>
             {/* Radial diagram on large screens, simple grid on small ones. */}
-            <div className="relative mx-auto hidden aspect-square w-full max-w-lg sm:block">
+            <div className="relative mx-auto hidden aspect-square w-full max-w-md sm:block lg:max-w-lg">
               <div
                 aria-hidden="true"
                 className="absolute inset-[14%] rounded-full border border-dashed border-navy-300/70"
@@ -139,13 +139,14 @@ export function MasterPlan() {
             </p>
           </Reveal>
           <Reveal delay={100}>
-            <span
+            <svg
+              viewBox="0 0 48 32"
               aria-hidden="true"
-              className="block text-6xl leading-none text-white/70"
+              className="h-8 w-12 fill-white/35"
             >
-              &ldquo;
-            </span>
-            <ul className="mt-4 space-y-3">
+              <path d="M0 32V17.6C0 7.9 5.9 1.6 17 0l1.9 5.4C13 7.2 10 10.6 9.6 15.2H18V32H0Zm30 0V17.6C30 7.9 35.9 1.6 47 0l1.9 5.4C43 7.2 40 10.6 39.6 15.2H48V32H30Z" />
+            </svg>
+            <ul className="mt-6 space-y-3">
               {benefits.map((benefit) => (
                 <li key={benefit} className="flex items-center gap-3 text-lg text-white">
                   <CheckIcon className="h-5 w-5 shrink-0 text-accent-cyan" />

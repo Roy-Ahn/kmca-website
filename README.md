@@ -70,5 +70,15 @@ public/images/      사진 및 그래픽 에셋
 - 모든 이미지에 설명형 `alt`를 제공하고, 장식용 이미지는 빈 `alt`로 처리했습니다.
 - 스크롤 애니메이션은 `prefers-reduced-motion` 설정을 존중합니다.
 - 키보드 사용자를 위한 "본문 바로가기" 링크와 포커스 스타일을 제공합니다.
-- 페이지별 메타데이터, Open Graph, `sitemap.xml`, `robots.txt`, 조직 정보 JSON-LD를 포함합니다.
-- 배포 도메인이 확정되면 `content/site.ts`의 `url` 값을 실제 주소로 변경하세요.
+- 페이지별 메타데이터, Open Graph 이미지(`app/opengraph-image.jpg`), `sitemap.xml`, `robots.txt`,
+  조직 정보 JSON-LD를 포함합니다.
+
+## 환경 변수
+
+| 변수 | 설명 |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | 사이트의 정식 도메인. canonical URL, Open Graph, `sitemap.xml`에 사용됩니다. |
+
+설정하지 않으면 Vercel 프로덕션 도메인(`VERCEL_PROJECT_PRODUCTION_URL`)을 사용하고,
+그것도 없으면 `http://localhost:3000`으로 대체됩니다. **배포 도메인이 확정되면 반드시
+`NEXT_PUBLIC_SITE_URL`을 지정하세요.** 예시는 `.env.example`을 참고하세요.

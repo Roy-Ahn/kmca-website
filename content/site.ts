@@ -1,3 +1,18 @@
+/**
+ * Canonical origin used for metadata, sitemap and JSON-LD.
+ * Set NEXT_PUBLIC_SITE_URL once the production domain is decided; on Vercel the
+ * production hostname is picked up automatically.
+ */
+export const siteUrl = (() => {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit.replace(/\/$/, "");
+
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercel) return `https://${vercel}`;
+
+  return "http://localhost:3000";
+})();
+
 export const site = {
   name: "한국메디코스아카데미",
   shortName: "KMCA",
@@ -6,7 +21,7 @@ export const site = {
   tagline: "메디컬 전문 NO.1 마케팅",
   description:
     "한국메디코스아카데미는 메디컬 마케팅과 교육을 제공하며 국내외 학회와 박람회를 주최합니다. 전략적 마케팅으로 병원 성과를 극대화하세요.",
-  url: "https://kmca.co.kr",
+  url: siteUrl,
   since: 2015,
   ceo: "김윤정",
   phone: "010-9113-9786",
