@@ -1,40 +1,54 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), var(--font-noto-kr), system-ui, sans-serif;
+  /* Latin first, then Korean. Pretendard/Apple SD Gothic Neo only act as
+     fallbacks while the webfont loads or if it fails. */
+  --font-sans:
+    var(--font-inter), var(--font-noto-kr), Pretendard, "Apple SD Gothic Neo", "Malgun Gothic",
+    system-ui, sans-serif;
 
-  --color-navy-50: #eef4ff;
-  --color-navy-100: #dbe7ff;
-  --color-navy-200: #b8ceff;
-  --color-navy-300: #8bacff;
-  --color-navy-400: #5b83f7;
-  --color-navy-500: #2f5ce8;
-  --color-navy-600: #1b47cf;
-  --color-navy-700: #1640a8;
-  --color-navy-800: #0f2f76;
-  --color-navy-900: #002f69;
-  --color-navy-950: #041634;
+  /* Ink — text and dark surfaces. Blue-leaning neutrals, not pure grey. */
+  --color-ink-950: #080d1a;
+  --color-ink-900: #0f1729;
+  --color-ink-800: #1b2740;
+  --color-ink-700: #2c3a58;
+  --color-ink-600: #46557a;
+  --color-ink-500: #64729a;
+  --color-ink-400: #8b96b5;
+  --color-ink-300: #b3bccf;
+  --color-ink-200: #d5dbe6;
+  --color-ink-100: #e8ecf3;
+  --color-ink-50: #f4f6fa;
 
-  --color-brand-400: #4d8dff;
+  /* Brand blue — accent, not wallpaper. */
+  --color-brand-50: #eaf2fd;
+  --color-brand-100: #d3e4fb;
+  --color-brand-200: #a8c8f6;
+  --color-brand-300: #6ea4ef;
+  --color-brand-400: #3d82e4;
   --color-brand-500: #1864c3;
-  --color-brand-600: #1054ab;
+  --color-brand-600: #0f4e9e;
+  --color-brand-700: #0d3f7f;
+  --color-brand-800: #0d3364;
+  --color-brand-900: #0d2c53;
 
-  --color-ice-50: #f6f9fd;
-  --color-ice-100: #eef4fb;
-  --color-ice-200: #dfe9f6;
+  --color-accent: #5ce1f2;
 
-  --color-accent-cyan: #7df3ff;
-  --color-accent-coral: #ff6b6b;
+  /* One radius scale. */
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
 
-  --shadow-card: 0 1px 2px rgb(4 22 52 / 0.04), 0 12px 32px -12px rgb(4 22 52 / 0.16);
-  --shadow-card-hover: 0 2px 4px rgb(4 22 52 / 0.06), 0 24px 48px -16px rgb(4 22 52 / 0.24);
+  /* Two shadows, used sparingly. */
+  --shadow-raise: 0 1px 2px rgb(8 13 26 / 0.04), 0 8px 24px -12px rgb(8 13 26 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(8 13 26 / 0.05), 0 20px 40px -20px rgb(8 13 26 / 0.25);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #0b1120;
+  --hairline: rgb(8 13 26 / 0.09);
+  --hairline-strong: rgb(8 13 26 / 0.16);
+  --hairline-invert: rgb(255 255 255 / 0.14);
   color-scheme: light;
 }
 
@@ -45,9 +59,10 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: #fff;
+    color: var(--color-ink-900);
     font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv05";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
@@ -56,37 +71,102 @@
     overflow-wrap: break-word;
   }
 
-  /* Korean text needs a little more air than the Latin default. */
+  /* Korean text needs more leading than the Latin default. */
   p,
   li,
   dd {
-    line-height: 1.8;
+    line-height: 1.75;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    line-height: 1.28;
-    letter-spacing: -0.02em;
+    line-height: 1.2;
+    letter-spacing: -0.022em;
     text-wrap: balance;
   }
 
+  /* Long paragraphs read better without a lonely last word. */
+  p {
+    text-wrap: pretty;
+  }
+
   ::selection {
-    background-color: var(--color-navy-900);
+    background-color: var(--color-brand-500);
     color: #fff;
   }
 
   :focus-visible {
     outline: 2px solid var(--color-brand-500);
     outline-offset: 3px;
+    border-radius: 2px;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Type scale — fluid, one source of truth.
+   --------------------------------------------------------------------------- */
+
+@utility text-display {
+  font-size: clamp(3rem, 1.6rem + 6vw, 6.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+@utility text-title-1 {
+  font-size: clamp(2rem, 1.2rem + 3.2vw, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+@utility text-title-2 {
+  font-size: clamp(1.5rem, 1.1rem + 1.7vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+@utility text-title-3 {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+@utility text-lede {
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+}
+
+@utility text-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Big index numerals used in editorial lists. */
+@utility text-index {
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout
+   --------------------------------------------------------------------------- */
 
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 76rem;
+  max-width: 78rem;
   padding-inline: 1.25rem;
 
   @variant sm {
@@ -94,17 +174,29 @@
   }
 
   @variant lg {
-    padding-inline: 2.5rem;
+    padding-inline: 3rem;
   }
 }
 
-/* Scroll reveal: hidden until the observer marks the element visible. */
+/* Hairline rules that adapt to light or dark sections. */
+@utility rule {
+  border-color: var(--hairline);
+}
+
+@utility rule-invert {
+  border-color: var(--hairline-invert);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — short travel, quick settle. Anything longer reads as sluggish.
+   --------------------------------------------------------------------------- */
+
 @utility reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(14px);
   transition:
-    opacity 0.7s var(--ease-out-soft),
-    transform 0.7s var(--ease-out-soft);
+    opacity 0.5s var(--ease-out-soft),
+    transform 0.5s var(--ease-out-soft);
   transition-delay: var(--reveal-delay, 0ms);
 
   &[data-visible="true"] {
@@ -122,5 +214,13 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

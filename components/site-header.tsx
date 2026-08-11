@@ -13,7 +13,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,22 +26,30 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // Every page opens on a dark hero, so the header starts transparent and
+  // only takes on a surface once the content scrolls underneath it.
+  const solid = scrolled || open;
+
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled || open
-          ? "border-b border-navy-950/10 bg-white/85 text-navy-950 backdrop-blur-xl"
-          : "border-b border-white/10 bg-transparent text-white",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
+        solid
+          ? "border-b border-[var(--hairline)] bg-white/80 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
       )}
     >
-      <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Link href="/" className="shrink-0" aria-label={`${site.name} 홈으로 이동`}>
-          <Logo />
+      <div className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
+        <Link
+          href="/"
+          className="shrink-0"
+          aria-label={`${site.name} 홈으로 이동`}
+        >
+          <Logo className={solid ? "text-ink-950" : "text-white"} />
         </Link>
 
         <nav aria-label="주요 메뉴" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+          <ul className="flex items-center gap-0.5">
             {navigation.map((item) => {
               const active =
                 item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -51,22 +59,23 @@ export function SiteHeader() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
-                      active
-                        ? scrolled
-                          ? "text-brand-500"
-                          : "text-white"
-                        : scrolled
-                          ? "text-navy-950/60 hover:text-navy-950"
-                          : "text-white/70 hover:text-white",
+                      "relative block px-3.5 py-2 text-sm font-semibold transition-colors duration-200",
+                      solid
+                        ? active
+                          ? "text-ink-950"
+                          : "text-ink-500 hover:text-ink-950"
+                        : active
+                          ? "text-white"
+                          : "text-white/65 hover:text-white",
                     )}
                   >
                     {item.label}
                     <span
+                      aria-hidden="true"
                       className={cn(
-                        "absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full transition-opacity",
-                        scrolled ? "bg-brand-500" : "bg-accent-cyan",
-                        active ? "opacity-100" : "opacity-0",
+                        "absolute inset-x-3.5 bottom-0 h-px origin-left transition-transform duration-300",
+                        solid ? "bg-ink-950" : "bg-accent",
+                        active ? "scale-x-100" : "scale-x-0",
                       )}
                     />
                   </Link>
@@ -76,17 +85,17 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <a
             href={site.phoneHref}
             className={cn(
-              "hidden items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-colors sm:inline-flex",
-              scrolled
-                ? "bg-navy-900 text-white hover:bg-navy-950"
-                : "bg-white/15 text-white ring-1 ring-white/30 backdrop-blur hover:bg-white/25",
+              "hidden items-center gap-2 rounded-pill px-4 py-2 text-sm font-bold transition-colors duration-200 sm:inline-flex",
+              solid
+                ? "bg-ink-950 text-white hover:bg-brand-600"
+                : "text-white ring-1 ring-inset ring-white/30 hover:bg-white/10",
             )}
           >
-            <PhoneIcon className="h-4 w-4" />
+            <PhoneIcon aria-hidden="true" className="h-3.5 w-3.5" />
             {site.phone}
           </a>
 
@@ -97,28 +106,26 @@ export function SiteHeader() {
             aria-controls="mobile-menu"
             aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
             className={cn(
-              "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden",
-              scrolled || open
-                ? "text-navy-950 hover:bg-navy-950/5"
-                : "text-white hover:bg-white/10",
+              "-mr-2 inline-flex h-10 w-10 items-center justify-center rounded-pill transition-colors lg:hidden",
+              solid ? "text-ink-950 hover:bg-ink-100" : "text-white hover:bg-white/10",
             )}
           >
-            <span className="relative block h-3.5 w-5">
+            <span className="relative block h-3 w-5">
               <span
                 className={cn(
-                  "absolute left-0 h-0.5 w-full rounded bg-current transition-all duration-300",
+                  "absolute left-0 h-[1.5px] w-full rounded bg-current transition-all duration-300",
                   open ? "top-1.5 rotate-45" : "top-0",
                 )}
               />
               <span
                 className={cn(
-                  "absolute left-0 top-1.5 h-0.5 w-full rounded bg-current transition-all duration-300",
+                  "absolute left-0 top-1.5 h-[1.5px] w-full rounded bg-current transition-all duration-300",
                   open && "opacity-0",
                 )}
               />
               <span
                 className={cn(
-                  "absolute left-0 h-0.5 w-full rounded bg-current transition-all duration-300",
+                  "absolute left-0 h-[1.5px] w-full rounded bg-current transition-all duration-300",
                   open ? "top-1.5 -rotate-45" : "top-3",
                 )}
               />
@@ -127,12 +134,8 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div
-        id="mobile-menu"
-        hidden={!open}
-        className="border-t border-navy-950/10 bg-white lg:hidden"
-      >
-        <nav aria-label="모바일 메뉴" className="container-page py-4">
+      <div id="mobile-menu" hidden={!open} className="bg-white lg:hidden">
+        <nav aria-label="모바일 메뉴" className="container-page pb-6 pt-2">
           <ul className="flex flex-col">
             {navigation.map((item) => {
               const active =
@@ -144,12 +147,12 @@ export function SiteHeader() {
                     aria-current={active ? "page" : undefined}
                     onClick={() => setOpen(false)}
                     className={cn(
-                      "flex items-baseline justify-between border-b border-navy-950/5 py-4",
-                      active ? "text-brand-500" : "text-navy-950",
+                      "flex items-baseline justify-between border-b border-[var(--hairline)] py-4",
+                      active ? "text-brand-600" : "text-ink-900",
                     )}
                   >
-                    <span className="text-base font-bold">{item.label}</span>
-                    <span className="text-xs text-navy-950/50">{item.labelKo}</span>
+                    <span className="text-title-3">{item.label}</span>
+                    <span className="text-xs text-ink-400">{item.labelKo}</span>
                   </Link>
                 </li>
               );
@@ -157,9 +160,9 @@ export function SiteHeader() {
           </ul>
           <a
             href={site.phoneHref}
-            className="mt-6 flex items-center justify-center gap-2 rounded-full bg-navy-900 px-5 py-3.5 text-sm font-bold text-white"
+            className="mt-6 flex items-center justify-center gap-2 rounded-pill bg-ink-950 px-5 py-3.5 text-sm font-bold text-white"
           >
-            <PhoneIcon className="h-4 w-4" />
+            <PhoneIcon aria-hidden="true" className="h-4 w-4" />
             {site.phone} · {site.hours}
           </a>
         </nav>

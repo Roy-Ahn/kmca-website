@@ -1,28 +1,36 @@
-import type { ReactNode } from "react";
+import Link from "next/link";
+import type { ComponentProps, ElementType, ReactNode } from "react";
+import { ArrowRightIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
+import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
+
+type Tone = "light" | "dark";
+
+/* ---------------------------------------------------------------- Eyebrow */
 
 export function Eyebrow({
   children,
-  tone = "brand",
+  tone = "light",
   className,
 }: {
   children: ReactNode;
-  tone?: "brand" | "light";
+  tone?: Tone;
   className?: string;
 }) {
   return (
     <p
       className={cn(
-        "flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em]",
-        tone === "brand" ? "text-brand-500" : "text-accent-cyan",
+        "text-eyebrow flex items-center gap-2.5",
+        tone === "light" ? "text-brand-500" : "text-accent",
         className,
       )}
     >
       <span
+        aria-hidden="true"
         className={cn(
-          "h-px w-8",
-          tone === "brand" ? "bg-brand-500/50" : "bg-accent-cyan/50",
+          "h-1 w-1 rounded-full",
+          tone === "light" ? "bg-brand-500" : "bg-accent",
         )}
       />
       {children}
@@ -30,43 +38,172 @@ export function Eyebrow({
   );
 }
 
+/* ----------------------------------------------------------------- Button */
+
+type ButtonVariant = "primary" | "outline";
+
+const buttonBase =
+  "group inline-flex items-center justify-center gap-2 rounded-pill px-6 py-3.5 text-sm font-bold transition-[background-color,color,box-shadow,transform] duration-200 active:translate-y-px";
+
+const buttonStyles: Record<Tone, Record<ButtonVariant, string>> = {
+  light: {
+    primary: "bg-ink-950 text-white hover:bg-brand-600",
+    outline: "text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-50 hover:ring-ink-300",
+  },
+  dark: {
+    primary: "bg-white text-ink-950 hover:bg-brand-50",
+    outline: "text-white ring-1 ring-inset ring-white/30 hover:bg-white/10 hover:ring-white/50",
+  },
+};
+
+export function ButtonLink({
+  href,
+  children,
+  variant = "primary",
+  tone = "light",
+  arrow = false,
+  className,
+  ...rest
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: ButtonVariant;
+  tone?: Tone;
+  arrow?: boolean;
+  className?: string;
+} & Omit<ComponentProps<"a">, "href" | "className" | "children">) {
+  const classes = cn(buttonBase, buttonStyles[tone][variant], className);
+  const content = (
+    <>
+      {children}
+      {arrow ? (
+        <ArrowRightIcon
+          aria-hidden="true"
+          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+        />
+      ) : null}
+    </>
+  );
+
+  // Internal routes go through next/link; tel: and external links stay anchors.
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={classes} {...rest}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} className={classes} {...rest}>
+      {content}
+    </a>
+  );
+}
+
+/* ------------------------------------------------------------------- Card */
+
+export function Card({
+  children,
+  as: Tag = "div",
+  interactive = false,
+  className,
+}: {
+  children: ReactNode;
+  as?: ElementType;
+  interactive?: boolean;
+  className?: string;
+}) {
+  return (
+    <Tag
+      className={cn(
+        "rounded-card border border-[var(--hairline)] bg-white",
+        interactive &&
+          "transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-lift",
+        className,
+      )}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+export function Tag({ children, tone = "light" }: { children: ReactNode; tone?: Tone }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-pill px-2.5 py-1 text-xs font-semibold",
+        tone === "light" ? "bg-brand-50 text-brand-600" : "bg-white/10 text-brand-100",
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* ---------------------------------------------------------------- Section */
+
+export function Section({
+  children,
+  className,
+  id,
+  tone = "light",
+  size = "default",
+}: {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+  tone?: Tone;
+  size?: "default" | "compact";
+}) {
+  return (
+    <section
+      id={id}
+      className={cn(
+        size === "compact" ? "py-16 lg:py-20" : "py-20 lg:py-32",
+        tone === "dark" && "bg-ink-950 text-white",
+        className,
+      )}
+    >
+      <div className="container-page">{children}</div>
+    </section>
+  );
+}
+
 export function SectionHeading({
   eyebrow,
   title,
   description,
-  tone = "brand",
+  tone = "light",
   align = "start",
   className,
 }: {
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
-  tone?: "brand" | "light";
+  tone?: Tone;
   align?: "start" | "center";
   className?: string;
 }) {
   return (
     <Reveal
       className={cn(
-        "max-w-3xl",
+        "max-w-2xl",
         align === "center" && "mx-auto flex flex-col items-center text-center",
         className,
       )}
     >
       {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
       <h2
-        className={cn(
-          "mt-5 text-3xl font-bold sm:text-4xl lg:text-[2.75rem]",
-          tone === "brand" ? "text-navy-950" : "text-white",
-        )}
+        className={cn("text-title-1 mt-5", tone === "light" ? "text-ink-950" : "text-white")}
       >
         {title}
       </h2>
       {description ? (
         <div
           className={cn(
-            "mt-5 text-base",
-            tone === "brand" ? "text-navy-950/65" : "text-navy-100/80",
+            "text-lede mt-5",
+            tone === "light" ? "text-ink-600" : "text-ink-300",
           )}
         >
           {description}
@@ -76,21 +213,7 @@ export function SectionHeading({
   );
 }
 
-export function Section({
-  children,
-  className,
-  id,
-}: {
-  children: ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  return (
-    <section id={id} className={cn("py-20 lg:py-28", className)}>
-      <div className="container-page">{children}</div>
-    </section>
-  );
-}
+/* --------------------------------------------------------------- PageHero */
 
 export function PageHero({
   eyebrow,
@@ -102,64 +225,50 @@ export function PageHero({
   description?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-navy-950 pb-20 pt-32 lg:pb-28 lg:pt-44">
+    <section className="relative overflow-hidden bg-ink-950 pb-16 pt-32 lg:pb-24 lg:pt-44">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-brand-500/35 blur-[120px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-32 top-10 h-[26rem] w-[26rem] rounded-full bg-navy-600/40 blur-[120px]"
+        className="pointer-events-none absolute -left-24 -top-40 h-[34rem] w-[34rem] rounded-full bg-brand-600/25 blur-[130px]"
       />
       <div className="container-page relative">
-        <Reveal className="max-w-3xl border-l-2 border-accent-cyan/70 pl-6 sm:pl-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent-cyan">
-            {eyebrow}
-          </p>
-          <h1 className="mt-4 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
+        <Reveal className="max-w-3xl">
+          <Eyebrow tone="dark">{eyebrow}</Eyebrow>
+          <h1 className="text-title-1 mt-6 text-white">{title}</h1>
           {description ? (
-            <div className="mt-6 max-w-2xl text-base text-navy-100/80">{description}</div>
+            <div className="text-lede mt-6 max-w-2xl text-ink-300">{description}</div>
           ) : null}
         </Reveal>
       </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+      />
     </section>
   );
 }
 
+/* ------------------------------------------------------------- ContactCta */
+
 export function ContactCta() {
   return (
-    <section className="relative overflow-hidden bg-navy-900">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(125,243,255,0.18),transparent_55%),radial-gradient(circle_at_85%_80%,rgba(27,71,207,0.55),transparent_55%)]"
-      />
-      <div className="container-page relative flex flex-col items-start gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
-        <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent-cyan">
-            Consulting
-          </p>
-          <h2 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
-            브랜딩부터 환자유입까지, 지금 상담받으세요
+    <section className="border-t border-[var(--hairline)] bg-ink-50">
+      <div className="container-page flex flex-col gap-8 py-16 lg:flex-row lg:items-end lg:justify-between lg:py-20">
+        <Reveal className="max-w-xl">
+          <Eyebrow>Consulting</Eyebrow>
+          <h2 className="text-title-2 mt-5 text-ink-950">
+            브랜딩부터 환자유입까지,
+            <br />
+            지금 상담받으세요
           </h2>
-          <p className="mt-3 text-navy-100/80">
-            365일 상담 문의 가능 · 병의원 상황에 맞는 맞춤 플랜을 제안해 드립니다.
+          <p className="mt-4 text-ink-600">
+            {site.hours} · 병의원 상황에 맞는 맞춤 플랜을 제안해 드립니다.
           </p>
         </Reveal>
         <Reveal delay={80} className="flex flex-wrap gap-3">
-          <a
-            href="tel:+82-10-9113-9786"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-bold text-navy-950 transition hover:bg-navy-50"
-          >
-            010-9113-9786
-          </a>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded-full px-7 py-4 text-sm font-bold text-white ring-1 ring-white/40 transition hover:bg-white/10"
-          >
+          <ButtonLink href={site.phoneHref}>{site.phone}</ButtonLink>
+          <ButtonLink href="/contact" variant="outline" arrow>
             오시는 길 보기
-          </a>
+          </ButtonLink>
         </Reveal>
       </div>
     </section>

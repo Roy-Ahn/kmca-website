@@ -85,6 +85,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${inter.variable} ${notoSansKr.variable}`}>
+      <head>
+        {/* Scroll reveals start hidden, so without JS the page must opt out. */}
+        <noscript>
+          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
+      </head>
       <body className="bg-white antialiased">
         <script
           type="application/ld+json"
@@ -92,7 +98,7 @@ export default function RootLayout({
         />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-navy-950 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-ink-950 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
         >
           본문 바로가기
         </a>

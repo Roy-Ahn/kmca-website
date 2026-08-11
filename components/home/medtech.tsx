@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/ui";
+import { Card, SectionHeading, Tag } from "@/components/ui";
 
 const devices = [
   {
@@ -31,50 +31,45 @@ const devices = [
 
 export function MedTech() {
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-white py-20 lg:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow="MedTech Marketing"
           title={
             <>
-              국내 <span className="text-navy-600">의료기기</span> 마케팅
+              국내 <span className="text-brand-500">의료기기</span> 마케팅
             </>
           }
           description="최고의 의료기기를 만드는 것은 제조사의 기술력이지만, 그 가치를 병의원 현장에 완벽히 각인시키는 것은 마케팅 전문가의 역할입니다."
         />
 
-        <ul className="mt-14 grid gap-5 md:grid-cols-2">
+        <ul className="mt-14 grid gap-4 md:grid-cols-2 lg:mt-20">
           {devices.map((device, index) => (
-            <Reveal
-              as="li"
-              key={device.name}
-              delay={(index % 2) * 90}
-              className="flex flex-col gap-5 rounded-2xl border border-navy-950/8 bg-ice-50 p-5 transition duration-300 hover:border-brand-400/40 hover:shadow-card sm:flex-row sm:items-center"
-            >
-              <div className="relative aspect-square w-full shrink-0 overflow-hidden rounded-xl bg-white sm:w-40">
-                <Image
-                  src={device.image}
-                  alt={`${device.name} 장비`}
-                  fill
-                  sizes="(min-width: 640px) 160px, 90vw"
-                  className="object-contain"
-                />
-              </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="text-xl font-bold text-navy-600">{device.name}</h3>
-                <ul className="mt-4 space-y-1 border-t border-navy-950/10 pt-4 text-sm text-navy-950/75">
-                  {device.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <p className="mt-4 flex flex-wrap gap-2 border-t border-navy-950/10 pt-4 text-xs font-semibold text-brand-500">
-                  {device.tags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-brand-500/10 px-3 py-1">
-                      {tag}
-                    </span>
-                  ))}
-                </p>
-              </div>
+            <Reveal as="li" key={device.name} delay={(index % 2) * 70}>
+              <Card interactive className="flex h-full flex-col gap-5 p-5 sm:flex-row">
+                <div className="relative aspect-square w-full shrink-0 overflow-hidden rounded-[0.5rem] bg-ink-50 sm:w-36">
+                  <Image
+                    src={device.image}
+                    alt={`${device.name} 장비`}
+                    fill
+                    sizes="(min-width: 640px) 144px, 90vw"
+                    className="object-contain p-2"
+                  />
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="text-title-3 text-ink-950">{device.name}</h3>
+                  <ul className="mt-3 space-y-0.5 text-sm leading-relaxed text-ink-600">
+                    {device.features.map((feature) => (
+                      <li key={feature}>{feature}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                    {device.tags.map((tag) => (
+                      <Tag key={tag}>{tag}</Tag>
+                    ))}
+                  </div>
+                </div>
+              </Card>
             </Reveal>
           ))}
         </ul>

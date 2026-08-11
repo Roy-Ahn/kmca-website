@@ -11,45 +11,46 @@ const videos = [
   { src: "/images/video-6.jpg", alt: "시술 현장을 담은 병원 홍보 영상 썸네일" },
 ];
 
+const capabilities = ["시술 전후 이미지", "초상권 걱정 없는 콘텐츠", "병의원 전용 스톡"];
+
 export function VisualMedia() {
   return (
     <>
-      <section className="bg-ice-100 py-20 lg:py-28">
-        <div className="container-page grid items-center gap-14 lg:grid-cols-2">
+      <section className="bg-ink-50 py-20 lg:py-32">
+        <div className="container-page grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
             <Reveal>
               <Eyebrow>AI Visual Consulting</Eyebrow>
-              <p className="mt-5 text-lg font-medium text-navy-950/70">
-                병원 브랜딩을 더해주는 맞춤제작
-              </p>
-              <h2 className="mt-3 text-3xl font-bold text-navy-950 sm:text-4xl lg:text-[2.75rem]">
+              <p className="mt-5 font-medium text-ink-500">병원 브랜딩을 더해주는 맞춤제작</p>
+              <h2 className="text-title-2 mt-3 text-ink-950">
                 트렌드와 기술을 접목한
                 <br />
                 차별화된 비주얼 기술
                 <br />
-                <span className="text-navy-600">AI 이미지 컨설팅</span>
+                <span className="text-brand-500">AI 이미지 컨설팅</span>
               </h2>
             </Reveal>
-            <Reveal delay={100}>
-              <p className="mt-6 max-w-lg text-base text-navy-950/70">
+            <Reveal delay={80}>
+              <p className="text-lede mt-6 max-w-lg text-ink-600">
                 병원 마케팅에 최적화된 고퀄리티 AI 이미지를 통해 환자의 시선을 사로잡고
                 마케팅 효율을 극대화합니다.
               </p>
             </Reveal>
-            <Reveal delay={160}>
-              <ul className="mt-8 flex flex-wrap gap-2 text-sm font-semibold text-brand-500">
-                {["시술 전후 이미지", "초상권 걱정 없는 콘텐츠", "병의원 전용 스톡"].map(
-                  (tag) => (
-                    <li key={tag} className="rounded-full bg-white px-4 py-2 shadow-card">
-                      {tag}
-                    </li>
-                  ),
-                )}
+            <Reveal delay={140}>
+              <ul className="mt-8 border-t border-[var(--hairline)]">
+                {capabilities.map((item) => (
+                  <li
+                    key={item}
+                    className="border-b border-[var(--hairline)] py-3.5 text-sm font-bold text-ink-800"
+                  >
+                    {item}
+                  </li>
+                ))}
               </ul>
             </Reveal>
           </div>
 
-          <Reveal delay={120} className="relative mx-auto flex max-w-lg items-end gap-4">
+          <Reveal delay={100} className="relative mx-auto flex max-w-lg items-end gap-4">
             <Image
               src="/images/ai-phone.png"
               alt="병의원 시술 카테고리별 AI 이미지가 정리된 모바일 화면"
@@ -64,13 +65,13 @@ export function VisualMedia() {
               width={326}
               height={659}
               sizes="(min-width: 1024px) 220px, 40vw"
-              className="mb-6 w-2/5 rounded-lg shadow-card"
+              className="mb-6 w-2/5 rounded-[0.5rem] shadow-lift"
             />
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-white py-20 lg:py-28">
+      <section className="bg-white py-20 lg:py-32">
         <div className="container-page">
           <SectionHeading
             eyebrow="Performance Media"
@@ -78,13 +79,13 @@ export function VisualMedia() {
             description="브랜드 스토리텔링을 바탕으로 유튜브 콘텐츠, 바이럴 영상, 숏폼 등 맞춤형 미디어 솔루션을 제공합니다."
           />
 
-          <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
             {videos.map((video, index) => (
               <Reveal
                 as="li"
                 key={video.src}
-                delay={(index % 3) * 90}
-                className="group relative overflow-hidden rounded-xl bg-navy-950"
+                delay={(index % 3) * 70}
+                className="group relative overflow-hidden rounded-card bg-ink-100"
               >
                 <div className="relative aspect-video">
                   <Image
@@ -92,12 +93,12 @@ export function VisualMedia() {
                     alt={video.alt}
                     fill
                     sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-                    className="object-cover transition duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-navy-950/10"
+                  className="pointer-events-none absolute inset-0 rounded-card ring-1 ring-inset ring-ink-950/10"
                 />
               </Reveal>
             ))}
