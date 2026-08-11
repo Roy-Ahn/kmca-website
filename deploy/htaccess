@@ -26,11 +26,17 @@ ErrorDocument 404 /404.html
   # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   # RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
-  # 이전 Canva 사이트 주소를 새 페이지로 연결합니다.
-  RewriteRule ^page-2/?$ /business/ [R=301,L]
-  RewriteRule ^page-3/?$ /consulting/ [R=301,L]
-  RewriteRule ^-/?$ /global/ [R=301,L]
-  RewriteRule ^contact-us/?$ /contact/ [R=301,L]
+  # 사이트가 한 페이지로 합쳐졌습니다. 예전 Canva 주소와 이전 하위 페이지 주소를
+  # 모두 홈의 해당 섹션으로 보냅니다. NE 플래그가 있어야 #앵커가 그대로 전달됩니다.
+  RewriteRule ^page-2/?$ /#business [R=301,L,NE]
+  RewriteRule ^page-3/?$ /#solutions [R=301,L,NE]
+  RewriteRule ^-/?$ /#global [R=301,L,NE]
+  RewriteRule ^contact-us/?$ /#contact [R=301,L,NE]
+  RewriteRule ^business/?$ /#business [R=301,L,NE]
+  RewriteRule ^consulting/?$ /#solutions [R=301,L,NE]
+  RewriteRule ^global/?$ /#global [R=301,L,NE]
+  RewriteRule ^history/?$ /#global [R=301,L,NE]
+  RewriteRule ^contact/?$ /#contact [R=301,L,NE]
 </IfModule>
 
 # 압축 전송

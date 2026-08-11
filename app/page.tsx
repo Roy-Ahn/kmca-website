@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { BusinessAreas } from "@/components/home/business-areas";
-import { Closing } from "@/components/home/closing";
-import { GlobalCongress } from "@/components/home/global-congress";
-import { Hero } from "@/components/home/hero";
-import { MasterPlan } from "@/components/home/master-plan";
-import { MedTech } from "@/components/home/medtech";
-import { Network } from "@/components/home/network";
-import { VisualMedia } from "@/components/home/visual-media";
+import { About } from "@/components/sections/about";
+import { Business } from "@/components/sections/business";
+import { Contact } from "@/components/sections/contact";
+import { Global } from "@/components/sections/global";
+import { Hero } from "@/components/sections/hero";
+import { Media } from "@/components/sections/media";
+import { MedTech } from "@/components/sections/medtech";
+import { Solutions } from "@/components/sections/solutions";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -19,13 +19,13 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Network />
-      <BusinessAreas />
-      <MasterPlan />
+      <About />
+      <Business />
       <MedTech />
-      <GlobalCongress />
-      <VisualMedia />
-      <Closing />
+      <Solutions />
+      <Global />
+      <Media />
+      <Contact />
     </>
   );
 }

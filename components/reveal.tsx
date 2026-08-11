@@ -10,6 +10,29 @@ type RevealProps = {
   delay?: number;
 };
 
+// One observer for the whole page rather than one per element.
+const callbacks = new WeakMap<Element, () => void>();
+let observer: IntersectionObserver | null = null;
+
+function getObserver() {
+  if (observer) return observer;
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        // `isIntersecting` alone misses elements that a fast scroll jumped
+        // clean over, so anything already above the viewport counts too.
+        if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+          callbacks.get(entry.target)?.();
+        }
+      }
+    },
+    { rootMargin: "0px 0px -5% 0px", threshold: 0 },
+  );
+
+  return observer;
+}
+
 export function Reveal({ children, as: Tag = "div", className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -18,20 +41,25 @@ export function Reveal({ children, as: Tag = "div", className, delay = 0 }: Reve
     const node = ref.current;
     if (!node) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.disconnect();
-          }
-        }
-      },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.05 },
-    );
+    if (typeof IntersectionObserver === "undefined") {
+      const timer = setTimeout(() => setVisible(true), 0);
+      return () => clearTimeout(timer);
+    }
 
-    observer.observe(node);
-    return () => observer.disconnect();
+    const io = getObserver();
+    const reveal = () => {
+      setVisible(true);
+      io.unobserve(node);
+      callbacks.delete(node);
+    };
+
+    callbacks.set(node, reveal);
+    io.observe(node);
+
+    return () => {
+      io.unobserve(node);
+      callbacks.delete(node);
+    };
   }, []);
 
   return (
