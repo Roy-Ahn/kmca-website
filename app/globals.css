@@ -116,15 +116,16 @@
     background-color: var(--color-brand-500);
     color: #fff;
   }
+}
 
-  :focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 3px;
-    border-radius: 2px;
-    /* Tailwind's transition-colors animates outline-color, which makes the
-       ring fade in. Keyboard focus has to be instant. */
-    transition-property: none;
-  }
+/* Deliberately outside @layer base: an unlayered rule outranks every utility,
+   so `transition-colors` cannot animate the ring into view and no colour
+   utility can repaint it. Keyboard focus has to be instant and unmistakable. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+  transition-property: none;
 }
 
 /* ---------------------------------------------------------------------------

@@ -96,9 +96,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        {/* on-dark: the link is a near-black pill over the dark hero, so its
+            focus ring has to be white rather than the default brand blue. */}
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-ink-950 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
+          className="on-dark sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-ink-950 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
         >
           본문 바로가기
         </a>
