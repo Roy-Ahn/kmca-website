@@ -24,10 +24,14 @@ const promises = [
 export function Hero() {
   return (
     <section id="top" className="on-dark relative overflow-hidden bg-ink-950 text-white">
-      {/* A single soft brand glow instead of competing radial gradients. */}
+      {/* Soft brand glows — slow drift so the dark plane feels alive. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 -top-56 h-[45rem] w-[45rem] rounded-full bg-brand-600/25 blur-[140px]"
+        className="grad-drift pointer-events-none absolute -left-40 -top-56 h-[45rem] w-[45rem] rounded-full bg-brand-600/25 blur-[140px]"
+      />
+      <div
+        aria-hidden="true"
+        className="grad-drift-reverse pointer-events-none absolute -bottom-40 right-[20%] h-[28rem] w-[28rem] rounded-full bg-accent/15 blur-[120px]"
       />
 
       {/* The photograph bleeds off the right edge on large screens. */}

@@ -30,8 +30,12 @@ const channels = [
 
 export function Media() {
   return (
-    <section id="media" className="bg-white py-20 lg:py-32">
-      <div className="container-page">
+    <section id="media" className="relative overflow-hidden bg-white py-20 lg:py-32">
+      <div
+        aria-hidden="true"
+        className="grad-drift-reverse pointer-events-none absolute -right-16 top-24 h-72 w-72 rounded-full bg-brand-50 blur-3xl"
+      />
+      <div className="container-page relative">
         <SectionHeading
           eyebrow="Media & Visual"
           title={

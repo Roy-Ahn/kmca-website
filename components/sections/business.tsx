@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/ui";
 
@@ -6,8 +5,6 @@ const areas = [
   {
     ko: "토탈 마케팅",
     en: "MEDICAL ALL",
-    image: "/images/area-total.jpg",
-    alt: "태블릿에서 마케팅 데이터를 확인하는 모습",
     items: [
       {
         name: "통합 메디컬 마케팅",
@@ -23,8 +20,6 @@ const areas = [
   {
     ko: "해외 네트워크",
     en: "GLOBAL MARKETING",
-    image: "/images/area-global.jpg",
-    alt: "전 세계를 연결하는 네트워크 이미지",
     items: [
       {
         name: "글로벌 맞춤형 마케팅",
@@ -43,8 +38,6 @@ const areas = [
   {
     ko: "브랜드 커머스",
     en: "MEDIA COMMERCE",
-    image: "/images/area-media.jpg",
-    alt: "비즈니스 미팅에서 계약을 진행하는 모습",
     items: [
       { name: "제품 마케팅", description: "제조사의 기술력을 병의원 현장의 선택으로 연결" },
       { name: "제품 해외 유통", description: "해외 파트너 발굴부터 현지 유통망 구축까지" },
@@ -54,8 +47,6 @@ const areas = [
   {
     ko: "비주얼 마케팅",
     en: "BEAUTY VISUALS",
-    image: "/images/area-visual.jpg",
-    alt: "뷰티 콘텐츠 모델 이미지",
     items: [
       { name: "메디컬 미디어 제작", description: "홍보 영상부터 시술 전후사진 제작까지 서포트" },
       {
@@ -69,8 +60,21 @@ const areas = [
 
 export function Business() {
   return (
-    <section id="business" className="on-dark bg-ink-950 py-20 text-white lg:py-32">
-      <div className="container-page">
+    <section id="business" className="on-dark relative overflow-hidden bg-ink-950 py-20 text-white lg:py-32">
+      <div
+        aria-hidden="true"
+        className="grad-drift pointer-events-none absolute -left-32 top-24 h-[28rem] w-[28rem] rounded-full bg-brand-600/20 blur-[120px]"
+      />
+      <div
+        aria-hidden="true"
+        className="grad-drift-reverse pointer-events-none absolute -right-24 bottom-0 h-[22rem] w-[22rem] rounded-full bg-accent/10 blur-[100px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-brand-900/40 to-transparent"
+      />
+
+      <div className="container-page relative">
         <SectionHeading
           tone="dark"
           eyebrow="Business Areas"
@@ -86,46 +90,32 @@ export function Business() {
               as="li"
               key={area.en}
               delay={index * 60}
-              className="group grid gap-8 border-b border-[var(--hairline-invert)] py-9 lg:grid-cols-12 lg:gap-12 lg:py-12"
+              className="group border-b border-[var(--hairline-invert)] py-9 lg:py-12"
             >
-              <div className="lg:col-span-8">
-                <div className="flex gap-5">
-                  <span
-                    aria-hidden="true"
-                    className="text-index shrink-0 text-white/35 transition-colors duration-300 group-hover:text-accent"
+              <div className="flex gap-5">
+                <span
+                  aria-hidden="true"
+                  className="text-index shrink-0 text-white/35 transition-colors duration-300 group-hover:text-accent"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-accent">{area.ko}</p>
+                  <h3 className="text-title-2 mt-1 text-white">{area.en}</h3>
+                </div>
+              </div>
+
+              <dl className="mt-8 grid gap-6 sm:grid-cols-3 sm:gap-8 lg:pl-[calc(2.5rem+1.25rem)]">
+                {area.items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="border-t border-[var(--hairline-invert)] pt-4"
                   >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-accent">{area.ko}</p>
-                    <h3 className="text-title-2 mt-1 text-white">{area.en}</h3>
+                    <dt className="font-bold text-white">{item.name}</dt>
+                    <dd className="mt-1.5 text-sm text-ink-400">{item.description}</dd>
                   </div>
-                </div>
-
-                <dl className="mt-8 grid gap-6 sm:grid-cols-3 sm:gap-8">
-                  {area.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className="border-t border-[var(--hairline-invert)] pt-4"
-                    >
-                      <dt className="font-bold text-white">{item.name}</dt>
-                      <dd className="mt-1.5 text-sm text-ink-400">{item.description}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-
-              <div className="lg:col-span-4">
-                <div className="relative aspect-[3/2] overflow-hidden rounded-card">
-                  <Image
-                    src={area.image}
-                    alt={area.alt}
-                    fill
-                    sizes="(min-width: 1024px) 22rem, 90vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-              </div>
+                ))}
+              </dl>
             </Reveal>
           ))}
         </ul>

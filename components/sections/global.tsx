@@ -28,8 +28,17 @@ const gallery = [
 
 export function Global() {
   return (
-    <section id="global" className="on-dark bg-ink-950 py-20 text-white lg:py-32">
-      <div className="container-page">
+    <section id="global" className="on-dark relative overflow-hidden bg-ink-950 py-20 text-white lg:py-32">
+      <div
+        aria-hidden="true"
+        className="grad-drift pointer-events-none absolute -right-28 top-10 h-[26rem] w-[26rem] rounded-full bg-brand-500/20 blur-[110px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-brand-900/30 to-transparent"
+      />
+
+      <div className="container-page relative">
         <SectionHeading
           tone="dark"
           eyebrow="Global & Congress"

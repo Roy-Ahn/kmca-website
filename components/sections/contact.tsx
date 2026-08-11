@@ -29,6 +29,10 @@ export function Contact() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-gradient-to-b from-ink-950/85 via-ink-950/80 to-ink-950"
       />
+      <div
+        aria-hidden="true"
+        className="grad-drift pointer-events-none absolute -left-24 top-10 -z-10 h-80 w-80 rounded-full bg-brand-500/25 blur-[100px]"
+      />
 
       <div className="container-page py-24 lg:py-32">
         <Reveal className="max-w-2xl">
