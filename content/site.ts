@@ -1,13 +1,13 @@
 /**
  * Canonical origin used for metadata, sitemap and JSON-LD.
- * Override with NEXT_PUBLIC_SITE_URL when serving from another hostname
- * (staging, preview deployments, or a www-first setup).
+ * www 주소가 대표입니다 (kmcaedu.co.kr 은 www 로 리다이렉트).
+ * 다른 호스트에서 확인할 때는 NEXT_PUBLIC_SITE_URL 로 덮어씁니다.
  */
 export const siteUrl = (() => {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
   if (explicit) return explicit.replace(/\/$/, "");
 
-  return "https://kmcaedu.co.kr";
+  return "https://www.kmcaedu.co.kr";
 })();
 
 export const site = {

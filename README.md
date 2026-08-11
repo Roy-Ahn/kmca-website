@@ -29,13 +29,15 @@ Node.js 20 이상을 권장합니다.
 
 ## 배포
 
-`kmcaedu.co.kr` 도메인에 올리는 방법은 **[DEPLOY.md](./DEPLOY.md)** 에 단계별로 정리되어 있습니다.
-요약하면 두 가지 선택지가 있습니다.
+**Vercel에 배포되어 있습니다.** `main` 브랜치에 push하면 자동으로 재배포됩니다.
+현재 주소는 [kmca-website.vercel.app](https://kmca-website.vercel.app) 이며,
+`www.kmcaedu.co.kr` 연결은 DNS 설정만 남아 있습니다.
+단계별 안내는 **[DEPLOY.md](./DEPLOY.md)** 를 참고하세요.
 
 | 방법 | 명령 | 특징 |
 | --- | --- | --- |
-| Vercel (권장) | `npm run build` (자동) | GitHub에 올리면 자동 배포, 이미지 실시간 최적화, SSL 자동 |
-| Cafe24 웹호스팅 | `npm run build:static` | `out/` 폴더를 FTP 업로드. Node.js가 없는 환경용 |
+| Vercel (사용 중) | `npm run build` (자동) | push하면 자동 배포, 이미지 실시간 최적화, SSL 자동 |
+| Cafe24 웹호스팅 | `npm run build:static` | `out/` 폴더를 FTP 업로드. Node.js가 없는 환경용 대안 |
 
 정적 빌드는 `output: "export"` 모드로 동작하며 다음이 함께 처리됩니다.
 
@@ -98,5 +100,6 @@ deploy/htaccess     정적 호스팅(Apache)용 서버 설정
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | 사이트의 정식 도메인. canonical URL, Open Graph, `sitemap.xml`에 사용됩니다. |
 
-설정하지 않으면 `https://kmcaedu.co.kr` 을 사용합니다. www 주소를 대표로 쓰거나
-임시 도메인에서 확인할 때만 값을 지정하세요. 예시는 `.env.example`을 참고하세요.
+설정하지 않으면 `https://www.kmcaedu.co.kr` 을 사용합니다(대표 주소는 www이고,
+`kmcaedu.co.kr` 은 www로 리다이렉트됩니다). 임시 도메인에서 확인하거나 대표 주소를
+바꿀 때만 값을 지정하세요. 예시는 `.env.example`을 참고하세요.

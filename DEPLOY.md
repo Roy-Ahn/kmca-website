@@ -3,6 +3,25 @@
 이 문서는 새로 만든 홈페이지를 `kmcaedu.co.kr` 주소로 띄우는 방법을 정리한 것입니다.
 터미널 사용이 처음이어도 순서대로 따라 하면 됩니다.
 
+## 지금 어디까지 되어 있나
+
+Vercel 배포는 **이미 완료**되었고, 지금 아래 주소에서 새 사이트를 볼 수 있습니다.
+
+> **https://kmca-website.vercel.app**
+
+| 항목 | 상태 |
+| --- | --- |
+| Vercel 프로젝트 `kmca-website` | 완료 (프레임워크 Next.js) |
+| GitHub 저장소 연결 (`main` 브랜치) | 완료 — `main` 에 push하면 자동 재배포 |
+| 프로덕션 배포 | 완료 |
+| 도메인 `kmcaedu.co.kr`, `www.kmcaedu.co.kr` 등록 | 완료 (Vercel에 추가·인증됨) |
+| **DNS 연결** | **미완료 — 아래 1단계 필요** |
+
+즉 **남은 작업은 DNS 하나**입니다. 도메인의 네임서버가 아직 Wix를 가리키고 있어
+`kmcaedu.co.kr` 로 접속하면 Wix 오류 페이지가 나옵니다. 아래 0~1단계를 진행하면 연결됩니다.
+
+대표 주소는 **`www.kmcaedu.co.kr`** 입니다. (`kmcaedu.co.kr` 로 들어오면 www로 자동 이동)
+
 ---
 
 ## 0. 먼저 알아야 할 현재 상태
@@ -39,51 +58,11 @@
 
 ---
 
-## 1. 두 가지 배포 방법 중 선택하기
+## 1. 도메인 연결하기 (남은 작업)
 
-|  | **방법 A. Vercel (권장)** | **방법 B. Cafe24 웹호스팅** |
-| --- | --- | --- |
-| 비용 | 무료 (개인/소규모 기준) | Cafe24 웹호스팅 상품 요금 |
-| 수정 후 반영 | GitHub에 올리면 자동 배포 | 매번 빌드 후 FTP 재업로드 |
-| 이미지 최적화 | 자동 (AVIF/WebP, 화면 크기별) | 빌드 시 미리 생성 (WebP) |
-| SSL(https) | 자동 발급·자동 갱신 | Cafe24에서 무료 SSL 신청 |
-| 속도 | 전 세계 CDN | 국내 서버 1대 |
-| 필요한 기술 | GitHub 계정 | FTP 프로그램 사용 |
+Vercel 쪽 설정은 끝났으므로, Cafe24에서 네임서버와 DNS만 정리하면 됩니다.
 
-**Vercel(방법 A)을 권장합니다.** 이 사이트는 Next.js로 만들어졌고 Vercel이 Next.js를 만든 회사라
-설정 없이 그대로 동작하며, 수정할 때마다 FTP로 다시 올리는 수고가 없습니다.
-Cafe24 웹호스팅은 PHP용 서버라 Next.js를 그대로 실행할 수 없기 때문에,
-방법 B에서는 **정적 파일로 변환해서** 올리는 방식을 씁니다. (이미 준비되어 있습니다.)
-
----
-
-## 방법 A. Vercel에 올리고 Cafe24 도메인 연결하기
-
-### A-1. Vercel에 사이트 올리기
-
-1. [vercel.com](https://vercel.com) 에 GitHub 계정으로 가입/로그인합니다.
-2. **Add New… → Project** 를 누르고 이 저장소를 선택한 뒤 **Import** 합니다.
-3. 빌드 설정은 건드리지 않아도 됩니다. (Next.js가 자동 인식됩니다.)
-4. **Deploy** 를 누르면 몇 분 뒤 `프로젝트이름.vercel.app` 주소로 사이트가 열립니다.
-   여기서 먼저 내용을 확인하세요. 이 단계까지는 도메인과 무관합니다.
-
-> 환경 변수는 설정하지 않아도 됩니다. 기본 도메인이 `https://kmcaedu.co.kr` 로 지정돼 있습니다.
-> `www` 주소를 대표로 쓰려는 경우에만 **Settings → Environment Variables** 에
-> `NEXT_PUBLIC_SITE_URL` = `https://www.kmcaedu.co.kr` 을 추가하세요.
-
-### A-2. 도메인 연결하기
-
-1. Vercel 프로젝트에서 **Settings → Domains** 로 들어갑니다.
-2. `kmcaedu.co.kr` 을 입력해 추가하고, 이어서 `www.kmcaedu.co.kr` 도 추가합니다.
-3. 화면에 **입력해야 할 DNS 레코드 값**이 표시됩니다. 이 값을 그대로 적어 둡니다.
-   보통 아래 형태입니다. (숫자와 주소는 프로젝트마다 다를 수 있으니 **화면에 나온 값**을 쓰세요.)
-
-   | 타입 | 호스트 | 값 |
-   | --- | --- | --- |
-   | A | `@` | 화면에 표시된 IP (예: `76.76.21.21`) |
-   | CNAME | `www` | 화면에 표시된 주소 (예: `cname.vercel-dns.com`) |
-
-### A-3. Cafe24에서 네임서버 되돌리고 DNS 입력하기
+### 1-1. Cafe24에서 네임서버 되돌리기
 
 1. [hosting.cafe24.com](https://hosting.cafe24.com) 로그인 → **나의 서비스 관리 → 도메인 관리** 로 이동합니다.
 2. `kmcaedu.co.kr` 의 **네임서버 변경**에서 Wix 네임서버를 지우고 Cafe24 네임서버를 입력합니다.
@@ -93,38 +72,60 @@ Cafe24 웹호스팅은 PHP용 서버라 Next.js를 그대로 실행할 수 없�
    | 1차 | `ns1.cafe24.co.kr` |
    | 2차 | `ns2.cafe24.co.kr` |
 
-3. **DNS 관리(DNS 레코드 설정)** 에 들어가 아래 레코드를 입력합니다.
-   - A-2에서 적어 둔 **A 레코드와 www CNAME**
-   - 0단계에서 백업해 둔 **메일 레코드 전부**
-4. 저장합니다.
+### 1-2. DNS 레코드 입력하기
 
-### A-4. 확인
+**DNS 관리(DNS 레코드 설정)** 에서 아래 두 개를 입력합니다.
+
+| 타입 | 호스트 | 값 |
+| --- | --- | --- |
+| A | `@` (비움) | `216.198.79.1` |
+| CNAME | `www` | `5ed37328932f9b75.vercel-dns-017.com` |
+
+여기에 더해 **0단계에서 백업해 둔 메일 레코드 전부**를 함께 입력한 뒤 저장합니다.
+
+> 위 두 값은 이 Vercel 프로젝트에 배정된 값입니다. 혹시 Vercel의
+> **Settings → Domains** 화면에 다른 값이 표시된다면 화면에 나온 값을 우선하세요.
+
+### 1-3. 확인
 
 네임서버 변경은 보통 10분~수 시간(최대 48시간) 걸립니다. 반영되면
 
-- Vercel의 Domains 화면에 **Valid Configuration** 으로 바뀌고,
-- SSL 인증서가 자동 발급되어 `https://kmcaedu.co.kr` 로 접속됩니다.
+- Vercel의 Domains 화면이 **Valid Configuration** 으로 바뀌고,
+- SSL 인증서가 자동 발급되어 `https://www.kmcaedu.co.kr` 로 접속됩니다.
+- `kmcaedu.co.kr` 로 들어와도 www 주소로 자동 이동합니다.
 
 터미널에서 직접 확인하려면:
 
 ```bash
-dig NS kmcaedu.co.kr +short     # cafe24 네임서버가 나와야 정상
-dig A kmcaedu.co.kr +short      # Vercel IP가 나와야 정상
-dig MX kmcaedu.co.kr +short     # 메일 레코드가 그대로 남아 있는지 확인
+dig NS kmcaedu.co.kr +short        # cafe24 네임서버가 나와야 정상
+dig A kmcaedu.co.kr +short         # 216.198.79.1 이 나와야 정상
+dig CNAME www.kmcaedu.co.kr +short # vercel-dns 주소가 나와야 정상
+dig MX kmcaedu.co.kr +short        # 메일 레코드가 그대로 남아 있는지 확인
 ```
 
-### A-5. 이후 수정하는 방법
+### 1-4. 이후 수정하는 방법
 
 코드를 고쳐 GitHub `main` 브랜치에 올리면 Vercel이 자동으로 다시 배포합니다. 따로 할 일이 없습니다.
 
 ---
 
-## 방법 B. Cafe24 웹호스팅에 직접 올리기
+## 2. (참고) Cafe24 웹호스팅에 직접 올리는 방법
 
-Cafe24 웹호스팅에는 Node.js가 없으므로, 사이트를 **HTML/CSS/이미지 파일 묶음으로 변환**해서 올립니다.
-이 저장소에는 그 변환 명령이 이미 준비되어 있습니다.
+Vercel 대신 Cafe24 웹호스팅을 쓰고 싶을 때를 위한 대안입니다. **지금은 필요하지 않습니다.**
 
-### B-1. Cafe24 웹호스팅 준비
+|  | **Vercel (현재 사용 중)** | **Cafe24 웹호스팅** |
+| --- | --- | --- |
+| 비용 | 무료 (개인/소규모 기준) | Cafe24 웹호스팅 상품 요금 |
+| 수정 후 반영 | GitHub에 올리면 자동 배포 | 매번 빌드 후 FTP 재업로드 |
+| 이미지 최적화 | 자동 (AVIF/WebP, 화면 크기별) | 빌드 시 미리 생성 (WebP) |
+| SSL(https) | 자동 발급·자동 갱신 | Cafe24에서 무료 SSL 신청 |
+| 속도 | 전 세계 CDN | 국내 서버 1대 |
+| 필요한 기술 | GitHub 계정 | FTP 프로그램 사용 |
+
+Cafe24 웹호스팅은 PHP용 서버라 Next.js를 그대로 실행할 수 없기 때문에,
+**정적 파일로 변환해서** 올리는 방식을 씁니다.
+
+### 2-1. Cafe24 웹호스팅 준비
 
 1. Cafe24에서 **웹호스팅 상품**을 신청합니다. (도메인만 있으면 웹 공간이 없습니다.)
 2. 신청한 웹호스팅에 `kmcaedu.co.kr` 도메인을 연결합니다.
@@ -132,7 +133,7 @@ Cafe24 웹호스팅에는 Node.js가 없으므로, 사이트를 **HTML/CSS/이�
 4. 0단계 안내대로 네임서버를 Cafe24(`ns1.cafe24.co.kr`, `ns2.cafe24.co.kr`)로 되돌리고,
    메일 레코드를 다시 입력합니다.
 
-### B-2. 내 컴퓨터에서 파일 만들기
+### 2-2. 내 컴퓨터에서 파일 만들기
 
 [Node.js LTS](https://nodejs.org) 를 설치한 뒤, 프로젝트 폴더에서 아래를 실행합니다.
 
@@ -144,7 +145,7 @@ npm run build:static
 끝나면 프로젝트 안에 **`out/` 폴더**가 생깁니다. 이 폴더 안에 있는 것이 실제로 올릴 파일 전부입니다.
 (HTML, `_next` 폴더, `images` 폴더, 그리고 서버 설정 파일인 `.htaccess`)
 
-### B-3. FTP로 업로드
+### 2-3. FTP로 업로드
 
 1. [FileZilla](https://filezilla-project.org) 같은 FTP 프로그램으로 Cafe24 FTP에 접속합니다.
 2. **숨김 파일이 보이도록 설정합니다.**
@@ -172,53 +173,57 @@ npm run build:static
 └── history/
 ```
 
-### B-4. SSL(https) 신청
+### 2-4. SSL(https) 신청
 
 1. Cafe24 관리자에서 **무료 SSL 보안 인증서(Let's Encrypt)** 를 신청합니다.
-2. 발급이 끝나면 `https://kmcaedu.co.kr` 로 접속됩니다.
+2. 발급이 끝나면 `https://www.kmcaedu.co.kr` 로 접속됩니다.
    `.htaccess` 에 http → https 자동 전환 설정이 들어 있습니다.
 
 > **주의:** SSL 발급이 끝나기 전에는 http로 접속해야 합니다.
 > 만약 SSL 신청 전에 올려서 접속이 무한 반복되면, `.htaccess` 에서
 > `# HTTPS 강제` 아래 세 줄(`RewriteCond` 2줄 + `RewriteRule` 1줄)을 잠시 `#` 로 주석 처리하세요.
 
-### B-5. 이후 수정하는 방법
+### 2-5. 이후 수정하는 방법
 
 내용을 고칠 때마다 `npm run build:static` 을 다시 실행하고 `out/` 폴더를 다시 업로드해야 합니다.
 
 ---
 
-## 2. 배포 후 마무리 작업
+## 3. 배포 후 마무리 작업
 
 1. **검색엔진 등록**
-   - [Google Search Console](https://search.google.com/search-console) 에 `https://kmcaedu.co.kr` 등록 후
-     `https://kmcaedu.co.kr/sitemap.xml` 제출
+   - [Google Search Console](https://search.google.com/search-console) 에 `https://www.kmcaedu.co.kr` 등록 후
+     `https://www.kmcaedu.co.kr/sitemap.xml` 제출
    - [네이버 서치어드바이저](https://searchadvisor.naver.com) 에도 동일하게 등록
 2. **기존 Canva 사이트 정리** — 방문자가 새 주소로 오도록 안내 문구나 링크를 남깁니다.
    예전 주소(`/page-2`, `/page-3`, `/-`, `/contact-us`)는 새 페이지로 자동 연결되도록 이미 설정돼 있습니다.
-3. **명함·블로그·SNS**에 적힌 주소를 `kmcaedu.co.kr` 로 통일합니다.
+3. **명함·블로그·SNS**에 적힌 주소를 `www.kmcaedu.co.kr` 로 통일합니다.
 
 ---
 
-## 3. 문제가 생겼을 때
+## 4. 문제가 생겼을 때
 
 | 증상 | 원인과 해결 |
 | --- | --- |
 | 아직 Wix 오류 페이지가 뜬다 | 네임서버 변경이 반영되지 않은 상태. `dig NS kmcaedu.co.kr +short` 로 확인하고 최대 48시간 기다립니다. |
 | 메일이 안 온다 | 네임서버 변경 후 MX 레코드가 빠진 경우. 0단계 표의 메일 레코드를 다시 입력하세요. |
-| 첫 화면은 나오는데 다른 메뉴가 404 | (방법 B) `business` 등 하위 폴더가 업로드되지 않았거나, 웹 루트 위치가 다릅니다. |
-| 500 Internal Server Error | (방법 B) `.htaccess` 문제입니다. 파일을 잠시 지워 접속되는지 확인한 뒤, Cafe24에 `mod_rewrite` 사용 가능 여부를 문의하세요. |
-| https 접속이 무한 반복된다 | (방법 B) SSL 발급 전입니다. B-4의 주의 사항대로 HTTPS 강제 규칙을 잠시 꺼 두세요. |
-| 이미지가 안 나온다 | (방법 B) `images` 폴더, 특히 `images/opt` 안의 WebP 파일이 전부 업로드됐는지 확인하세요. |
+| 첫 화면은 나오는데 다른 메뉴가 404 | (Cafe24 웹호스팅) `business` 등 하위 폴더가 업로드되지 않았거나, 웹 루트 위치가 다릅니다. |
+| 500 Internal Server Error | (Cafe24 웹호스팅) `.htaccess` 문제입니다. 파일을 잠시 지워 접속되는지 확인한 뒤, Cafe24에 `mod_rewrite` 사용 가능 여부를 문의하세요. |
+| https 접속이 무한 반복된다 | (Cafe24 웹호스팅) SSL 발급 전입니다. 2-4의 주의 사항대로 HTTPS 강제 규칙을 잠시 꺼 두세요. |
+| 이미지가 안 나온다 | (Cafe24 웹호스팅) `images` 폴더, 특히 `images/opt` 안의 WebP 파일이 전부 업로드됐는지 확인하세요. |
 | 글씨가 깨져 보인다 | 브라우저 캐시 문제일 수 있습니다. 새로고침(Ctrl/Cmd + Shift + R) 후 확인하세요. |
 
 ---
 
-## 4. www 주소를 대표로 쓰고 싶다면
+## 5. www 없는 주소를 대표로 쓰고 싶다면
 
-기본 설정은 `kmcaedu.co.kr`(www 없는 주소)이 대표입니다. `www.kmcaedu.co.kr` 을 대표로 쓰려면:
+현재는 `www.kmcaedu.co.kr` 이 대표이고 `kmcaedu.co.kr` 은 www로 이동합니다.
+반대로 바꾸려면:
 
-1. `.env` 파일에 `NEXT_PUBLIC_SITE_URL=https://www.kmcaedu.co.kr` 로 지정
-   (Vercel은 Environment Variables 값을 수정)
-2. 방법 B라면 `deploy/htaccess` 안의 `# 주소를 kmcaedu.co.kr 하나로 통일합니다` 아래에서
+1. Vercel **Settings → Domains** 에서 `www.kmcaedu.co.kr` 이 `kmcaedu.co.kr` 로
+   리다이렉트되도록 변경
+2. Vercel **Settings → Environment Variables** 의 `NEXT_PUBLIC_SITE_URL` 을
+   `https://kmcaedu.co.kr` 로 수정한 뒤 재배포
+3. Cafe24 웹호스팅을 쓰는 경우에는 `deploy/htaccess` 안의
+   `# 주소를 www.kmcaedu.co.kr 하나로 통일합니다` 아래에서
    위 두 줄을 주석 처리하고 아래 두 줄의 주석을 해제한 뒤 다시 빌드
