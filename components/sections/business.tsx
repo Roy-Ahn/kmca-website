@@ -63,15 +63,15 @@ export function Business() {
     <section id="business" className="on-dark relative overflow-hidden bg-ink-950 py-20 text-white lg:py-32">
       <div
         aria-hidden="true"
-        className="grad-drift pointer-events-none absolute -left-32 top-24 h-[28rem] w-[28rem] rounded-full bg-brand-600/20 blur-[120px]"
+        className="grad-drift pointer-events-none absolute -left-32 top-24 h-[28rem] w-[28rem] rounded-full bg-brand-500/30 blur-[120px]"
       />
       <div
         aria-hidden="true"
-        className="grad-drift-reverse pointer-events-none absolute -right-24 bottom-0 h-[22rem] w-[22rem] rounded-full bg-accent/10 blur-[100px]"
+        className="grad-drift-reverse pointer-events-none absolute -right-24 bottom-0 h-[22rem] w-[22rem] rounded-full bg-accent/18 blur-[100px]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-brand-900/40 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-brand-700/50 to-transparent"
       />
 
       <div className="container-page relative">
