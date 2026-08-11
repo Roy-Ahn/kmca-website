@@ -64,14 +64,12 @@ Cafe24 웹호스팅은 PHP용 서버라 Next.js를 그대로 실행할 수 없�
 1. [vercel.com](https://vercel.com) 에 GitHub 계정으로 가입/로그인합니다.
 2. **Add New… → Project** 를 누르고 이 저장소를 선택한 뒤 **Import** 합니다.
 3. 빌드 설정은 건드리지 않아도 됩니다. (Next.js가 자동 인식됩니다.)
-4. **Environment Variables** 에 아래 값을 추가합니다.
-
-   | Key | Value |
-   | --- | --- |
-   | `NEXT_PUBLIC_SITE_URL` | `https://kmcaedu.co.kr` |
-
-5. **Deploy** 를 누르면 몇 분 뒤 `프로젝트이름.vercel.app` 주소로 사이트가 열립니다.
+4. **Deploy** 를 누르면 몇 분 뒤 `프로젝트이름.vercel.app` 주소로 사이트가 열립니다.
    여기서 먼저 내용을 확인하세요. 이 단계까지는 도메인과 무관합니다.
+
+> 환경 변수는 설정하지 않아도 됩니다. 기본 도메인이 `https://kmcaedu.co.kr` 로 지정돼 있습니다.
+> `www` 주소를 대표로 쓰려는 경우에만 **Settings → Environment Variables** 에
+> `NEXT_PUBLIC_SITE_URL` = `https://www.kmcaedu.co.kr` 을 추가하세요.
 
 ### A-2. 도메인 연결하기
 
