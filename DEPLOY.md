@@ -180,13 +180,11 @@ npm run build:static
 ├── robots.txt
 ├── sitemap.xml
 ├── _next/
-├── images/
-├── business/
-├── consulting/
-├── contact/
-├── global/
-└── history/
+└── images/
 ```
+
+> 사이트는 한 페이지라 하위 폴더가 없습니다. `index.html` 하나에 모든 내용이 들어 있고,
+> 메뉴는 그 안의 섹션(`#business`, `#contact` …)으로 이동합니다.
 
 ### 2-4. SSL(https) 신청
 
@@ -211,7 +209,8 @@ npm run build:static
      `https://www.kmcaedu.co.kr/sitemap.xml` 제출
    - [네이버 서치어드바이저](https://searchadvisor.naver.com) 에도 동일하게 등록
 2. **기존 Canva 사이트 정리** — 방문자가 새 주소로 오도록 안내 문구나 링크를 남깁니다.
-   예전 주소(`/page-2`, `/page-3`, `/-`, `/contact-us`)는 새 페이지로 자동 연결되도록 이미 설정돼 있습니다.
+   예전 주소(`/page-2`, `/page-3`, `/-`, `/contact-us`)는 새 사이트의 해당 섹션으로
+   자동 연결되도록 이미 설정돼 있습니다.
 3. **명함·블로그·SNS**에 적힌 주소를 `www.kmcaedu.co.kr` 로 통일합니다.
 
 ---
@@ -222,7 +221,7 @@ npm run build:static
 | --- | --- |
 | 아직 Wix 오류 페이지가 뜬다 | 네임서버 변경이 반영되지 않은 상태. `dig NS kmcaedu.co.kr +short` 로 확인하고 최대 48시간 기다립니다. |
 | 메일이 안 온다 | 네임서버 변경 후 MX 레코드가 빠진 경우. 0단계 표의 메일 레코드를 다시 입력하세요. |
-| 첫 화면은 나오는데 다른 메뉴가 404 | (Cafe24 웹호스팅) `business` 등 하위 폴더가 업로드되지 않았거나, 웹 루트 위치가 다릅니다. |
+| 메뉴를 눌러도 이동하지 않는다 | `index.html` 이 일부만 업로드된 경우입니다. `out/` 폴더 전체를 다시 올려 주세요. |
 | 500 Internal Server Error | (Cafe24 웹호스팅) `.htaccess` 문제입니다. 파일을 잠시 지워 접속되는지 확인한 뒤, Cafe24에 `mod_rewrite` 사용 가능 여부를 문의하세요. |
 | https 접속이 무한 반복된다 | (Cafe24 웹호스팅) SSL 발급 전입니다. 2-4의 주의 사항대로 HTTPS 강제 규칙을 잠시 꺼 두세요. |
 | 이미지가 안 나온다 | (Cafe24 웹호스팅) `images` 폴더, 특히 `images/opt` 안의 WebP 파일이 전부 업로드됐는지 확인하세요. |

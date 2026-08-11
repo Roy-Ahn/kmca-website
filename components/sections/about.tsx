@@ -8,9 +8,9 @@ const facts = [
   { label: "학회 · 박람회", value: "국내외 매년 개최" },
 ];
 
-export function Network() {
+export function About() {
   return (
-    <section className="bg-white py-20 lg:py-32">
+    <section id="about" className="bg-white py-20 lg:py-32">
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
           <div className="relative aspect-[4/5] overflow-hidden rounded-card">

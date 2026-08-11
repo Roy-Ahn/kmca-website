@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { navigation, site } from "@/content/site";
 
@@ -37,13 +36,13 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="푸터 메뉴">
-          <h2 className="text-eyebrow text-ink-500">Sitemap</h2>
+          <h2 className="text-eyebrow text-ink-500">Sections</h2>
           <ul className="mt-5 grid grid-cols-2 gap-x-10 gap-y-3 text-sm font-medium text-ink-700 md:grid-cols-1">
             {navigation.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-brand-600">
-                  {item.label}
-                </Link>
+              <li key={item.id}>
+                <a href={`/#${item.id}`} className="hover:text-brand-600">
+                  {item.labelKo}
+                </a>
               </li>
             ))}
           </ul>

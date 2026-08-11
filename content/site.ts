@@ -32,11 +32,15 @@ export const site = {
   mapQuery: "서울특별시 송파구 위례성대로 6 현대토픽스 3층",
 } as const;
 
+/**
+ * 사이트는 한 페이지입니다. 메뉴는 페이지 안의 섹션으로 이동합니다.
+ * `id` 는 각 섹션의 앵커이며 헤더의 현재 위치 표시에도 그대로 쓰입니다.
+ */
 export const navigation = [
-  { href: "/", label: "Home", labelKo: "홈" },
-  { href: "/business", label: "Business Areas", labelKo: "주요사업분야" },
-  { href: "/consulting", label: "Opening Consulting", labelKo: "토탈솔루션" },
-  { href: "/global", label: "Global Expansion", labelKo: "글로벌 마케팅" },
-  { href: "/history", label: "KMCA History", labelKo: "히스토리" },
-  { href: "/contact", label: "Contact Us", labelKo: "오시는 길" },
+  { id: "about", label: "About", labelKo: "소개" },
+  { id: "business", label: "Business", labelKo: "사업분야" },
+  { id: "solutions", label: "Solutions", labelKo: "개원 솔루션" },
+  { id: "global", label: "Global", labelKo: "글로벌·학회" },
+  { id: "media", label: "Media", labelKo: "미디어" },
+  { id: "contact", label: "Contact", labelKo: "오시는 길" },
 ] as const;

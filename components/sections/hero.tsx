@@ -3,7 +3,7 @@ import { Reveal } from "@/components/reveal";
 import { ButtonLink, Eyebrow } from "@/components/ui";
 import { site } from "@/content/site";
 
-const steps = [
+const promises = [
   {
     title: "메디컬 전담팀",
     titleRest: "의 1:1 밀착 솔루션",
@@ -23,7 +23,7 @@ const steps = [
 
 export function Hero() {
   return (
-    <section className="on-dark relative overflow-hidden bg-ink-950 text-white">
+    <section id="top" className="on-dark relative overflow-hidden bg-ink-950 text-white">
       {/* A single soft brand glow instead of competing radial gradients. */}
       <div
         aria-hidden="true"
@@ -44,7 +44,7 @@ export function Hero() {
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/75 to-ink-950/45"
         />
-        {/* Keeps the numbered steps readable where they cross the photo. */}
+        {/* Keeps the numbered list readable where it crosses the photo. */}
         <div
           aria-hidden="true"
           className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 via-ink-950/80 to-transparent"
@@ -71,7 +71,7 @@ export function Hero() {
             </p>
           </Reveal>
           <Reveal delay={180} className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href="/business" tone="dark" arrow>
+            <ButtonLink href="/#business" tone="dark" arrow>
               주요 사업분야 보기
             </ButtonLink>
             <ButtonLink href={site.phoneHref} tone="dark" variant="outline">
@@ -95,7 +95,7 @@ export function Hero() {
         </Reveal>
 
         <ol className="mt-16 grid gap-px overflow-hidden border-t border-[var(--hairline-invert)] sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
-          {steps.map((item, index) => (
+          {promises.map((item, index) => (
             <Reveal
               as="li"
               key={item.title}

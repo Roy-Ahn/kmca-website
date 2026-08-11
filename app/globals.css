@@ -80,6 +80,17 @@
     overflow-wrap: break-word;
   }
 
+  /* The header is fixed, so an anchored section has to stop below it. */
+  section[id] {
+    scroll-margin-top: 4rem;
+  }
+
+  @media (min-width: 64rem) {
+    section[id] {
+      scroll-margin-top: 4.5rem;
+    }
+  }
+
   /* Korean text needs more leading than the Latin default. */
   p,
   li,

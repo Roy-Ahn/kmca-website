@@ -1,41 +1,71 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 import { navigation, site } from "@/content/site";
 import { cn } from "@/lib/cn";
 
+// Where the "current section" line sits, just below the fixed header.
+const SPY_OFFSET = 140;
+
 export function SiteHeader() {
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      const line = window.scrollY + SPY_OFFSET;
+
+      let current = "";
+      for (const item of navigation) {
+        const element = document.getElementById(item.id);
+        if (element && element.getBoundingClientRect().top + window.scrollY <= line) {
+          current = item.id;
+        }
+      }
+
+      // The last section can be too short to ever cross the line.
+      const atBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (atBottom) current = navigation[navigation.length - 1].id;
+
+      setScrolled(window.scrollY > 8);
+      setActive(current);
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
     if (!open) return;
 
-    document.body.style.overflow = "hidden";
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", onKeyDown);
 
-    return () => {
-      document.body.style.overflow = "";
-      document.removeEventListener("keydown", onKeyDown);
-    };
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Every page opens on a dark hero, so the header starts transparent and
-  // only takes on a surface once the content scrolls underneath it.
+  // The page opens on a dark hero, so the header starts transparent and only
+  // takes on a surface once the content scrolls underneath it.
   const solid = scrolled || open;
 
   return (
@@ -49,48 +79,41 @@ export function SiteHeader() {
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
-        <Link
-          href="/"
-          className="shrink-0"
-          aria-label={`${site.name} 홈으로 이동`}
-        >
+        {/* Absolute fragments: a same-document scroll here, a real link from 404. */}
+        <a href="/#top" className="shrink-0" aria-label={`${site.name} 맨 위로 이동`}>
           <Logo className={solid ? "text-ink-950" : "text-white"} />
-        </Link>
+        </a>
 
         <nav aria-label="주요 메뉴" className="hidden lg:block">
           <ul className="flex items-center gap-0.5">
-            {navigation.map((item) => {
-              const active =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
+            {navigation.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`/#${item.id}`}
+                  aria-current={active === item.id ? "true" : undefined}
+                  className={cn(
+                    "relative block px-3.5 py-2 text-sm font-semibold transition-colors duration-200",
+                    solid
+                      ? active === item.id
+                        ? "text-ink-950"
+                        : "text-ink-500 hover:text-ink-950"
+                      : active === item.id
+                        ? "text-white"
+                        : "text-white/65 hover:text-white",
+                  )}
+                >
+                  {item.label}
+                  <span
+                    aria-hidden="true"
                     className={cn(
-                      "relative block px-3.5 py-2 text-sm font-semibold transition-colors duration-200",
-                      solid
-                        ? active
-                          ? "text-ink-950"
-                          : "text-ink-500 hover:text-ink-950"
-                        : active
-                          ? "text-white"
-                          : "text-white/65 hover:text-white",
+                      "absolute inset-x-3.5 bottom-0 h-px origin-left transition-transform duration-300",
+                      solid ? "bg-ink-950" : "bg-accent",
+                      active === item.id ? "scale-x-100" : "scale-x-0",
                     )}
-                  >
-                    {item.label}
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "absolute inset-x-3.5 bottom-0 h-px origin-left transition-transform duration-300",
-                        solid ? "bg-ink-950" : "bg-accent",
-                        active ? "scale-x-100" : "scale-x-0",
-                      )}
-                    />
-                  </Link>
-                </li>
-              );
-            })}
+                  />
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
 
@@ -146,26 +169,22 @@ export function SiteHeader() {
       <div id="mobile-menu" hidden={!open} className="bg-white lg:hidden">
         <nav aria-label="모바일 메뉴" className="container-page pb-6 pt-2">
           <ul className="flex flex-col">
-            {navigation.map((item) => {
-              const active =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "flex items-baseline justify-between border-b border-[var(--hairline)] py-4",
-                      active ? "text-brand-600" : "text-ink-900",
-                    )}
-                  >
-                    <span className="text-title-3">{item.label}</span>
-                    <span className="text-xs text-ink-500">{item.labelKo}</span>
-                  </Link>
-                </li>
-              );
-            })}
+            {navigation.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`/#${item.id}`}
+                  aria-current={active === item.id ? "true" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-baseline justify-between border-b border-[var(--hairline)] py-4",
+                    active === item.id ? "text-brand-600" : "text-ink-900",
+                  )}
+                >
+                  <span className="text-title-3">{item.label}</span>
+                  <span className="text-xs text-ink-500">{item.labelKo}</span>
+                </a>
+              </li>
+            ))}
           </ul>
           <a
             href={site.phoneHref}
