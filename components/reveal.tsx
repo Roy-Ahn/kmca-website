@@ -3,11 +3,20 @@
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
+type RevealVariant = "up" | "fade" | "scale";
+
 type RevealProps = {
   children: ReactNode;
   as?: ElementType;
   className?: string;
   delay?: number;
+  variant?: RevealVariant;
+};
+
+const variantClass: Record<RevealVariant, string> = {
+  up: "reveal-up",
+  fade: "reveal-fade",
+  scale: "reveal-scale",
 };
 
 // One observer for the whole page rather than one per element.
@@ -27,13 +36,19 @@ function getObserver() {
         }
       }
     },
-    { rootMargin: "0px 0px -5% 0px", threshold: 0 },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.08 },
   );
 
   return observer;
 }
 
-export function Reveal({ children, as: Tag = "div", className, delay = 0 }: RevealProps) {
+export function Reveal({
+  children,
+  as: Tag = "div",
+  className,
+  delay = 0,
+  variant = "up",
+}: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -66,7 +81,7 @@ export function Reveal({ children, as: Tag = "div", className, delay = 0 }: Reve
     <Tag
       ref={ref}
       data-visible={visible}
-      className={cn("reveal", className)}
+      className={cn("reveal", variantClass[variant], className)}
       style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}
     >
       {children}

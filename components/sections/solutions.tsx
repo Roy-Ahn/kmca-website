@@ -54,8 +54,12 @@ const benefits = [
 export function Solutions() {
   return (
     <>
-      <section id="solutions" className="bg-ink-50 py-20 lg:py-32">
-        <div className="container-page">
+      <section id="solutions" className="relative overflow-hidden bg-ink-50 py-20 lg:py-32">
+        <div
+          aria-hidden="true"
+          className="grad-sheen pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,rgb(24_100_195/0.06)_45%,transparent_70%)]"
+        />
+        <div className="container-page relative">
           <SectionHeading
             eyebrow="Opening Consulting"
             title="신규 개원 토탈 솔루션"
@@ -64,7 +68,7 @@ export function Solutions() {
 
           <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
             {pillars.map((pillar, index) => (
-              <Reveal as="li" key={pillar.title} delay={index * 70}>
+              <Reveal as="li" key={pillar.title} delay={index * 70} variant="scale">
                 <Card interactive className="group h-full p-7">
                   <div className="flex items-start justify-between">
                     <span className="flex h-12 w-12 items-center justify-center rounded-card bg-ink-950 text-white transition-colors duration-300 group-hover:bg-brand-500">
@@ -111,8 +115,12 @@ export function Solutions() {
       </section>
 
       {/* The one saturated band on the page — it earns the emphasis. */}
-      <section className="on-dark bg-brand-600 py-16 text-white lg:py-20">
-        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
+      <section className="on-dark relative overflow-hidden bg-brand-600 py-16 text-white lg:py-20">
+        <div
+          aria-hidden="true"
+          className="grad-sheen pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,transparent_20%,rgb(255_255_255/0.12)_50%,transparent_80%)]"
+        />
+        <div className="container-page relative grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
           <Reveal>
             <p className="text-title-1">
               광고비는 쓰는데

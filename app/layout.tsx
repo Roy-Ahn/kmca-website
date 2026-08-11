@@ -88,7 +88,7 @@ export default function RootLayout({
       <head>
         {/* Scroll reveals start hidden, so without JS the page must opt out. */}
         <noscript>
-          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+          <style>{`.reveal{opacity:1 !important;transform:none !important;filter:none !important}`}</style>
         </noscript>
       </head>
       <body className="bg-white antialiased">

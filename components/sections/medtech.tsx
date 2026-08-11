@@ -35,8 +35,17 @@ const devices = [
 
 export function MedTech() {
   return (
-    <section className="bg-white py-20 lg:py-32">
-      <div className="container-page">
+    <section className="relative overflow-hidden bg-white py-20 lg:py-32">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-ink-50 via-brand-50/40 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="grad-drift pointer-events-none absolute -left-20 top-32 h-64 w-64 rounded-full bg-brand-100/70 blur-3xl"
+      />
+
+      <div className="container-page relative">
         <SectionHeading
           eyebrow="MedTech Marketing"
           title={
@@ -49,7 +58,7 @@ export function MedTech() {
 
         <ul className="mt-14 grid gap-4 md:grid-cols-2 lg:mt-20">
           {devices.map((device, index) => (
-            <Reveal as="li" key={device.name} delay={(index % 2) * 70}>
+            <Reveal as="li" key={device.name} delay={(index % 2) * 70} variant="scale">
               <Card interactive className="flex h-full flex-col gap-5 p-5 sm:flex-row">
                 <div className="relative aspect-square w-full shrink-0 overflow-hidden rounded-[0.5rem] bg-ink-50 sm:w-36">
                   <Image
