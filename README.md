@@ -18,13 +18,29 @@
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # 프로덕션 빌드
-npm start        # 빌드 결과 실행
-npx eslint .     # 린트
+npm run dev           # http://localhost:3000
+npm run build         # 프로덕션 빌드 (Node.js 서버 / Vercel용)
+npm start             # 빌드 결과 실행
+npm run build:static  # 정적 파일 빌드 (Cafe24 웹호스팅용) → out/
+npm run lint          # 린트
 ```
 
 Node.js 20 이상을 권장합니다.
+
+## 배포
+
+`kmcaedu.co.kr` 도메인에 올리는 방법은 **[DEPLOY.md](./DEPLOY.md)** 에 단계별로 정리되어 있습니다.
+요약하면 두 가지 선택지가 있습니다.
+
+| 방법 | 명령 | 특징 |
+| --- | --- | --- |
+| Vercel (권장) | `npm run build` (자동) | GitHub에 올리면 자동 배포, 이미지 실시간 최적화, SSL 자동 |
+| Cafe24 웹호스팅 | `npm run build:static` | `out/` 폴더를 FTP 업로드. Node.js가 없는 환경용 |
+
+정적 빌드는 `output: "export"` 모드로 동작하며 다음이 함께 처리됩니다.
+
+- `scripts/optimize-images.mjs` 가 `public/images` 사진을 너비별 WebP로 미리 생성 (`image-loader.ts` 가 선택)
+- `deploy/htaccess` 를 `out/.htaccess` 로 복사 — Apache에서 301 리다이렉트·HTTPS 전환·캐시 설정을 담당
 
 ## 페이지 구성
 
@@ -37,7 +53,8 @@ Node.js 20 이상을 권장합니다.
 | `/history` | KMCA 히스토리 갤러리, 병의원 채널 운영 사례 |
 | `/contact` | 연락처, 주소, 지도 |
 
-이전 Canva 사이트의 주소는 `next.config.ts`의 `redirects()`에서 새 경로로 301 리다이렉트됩니다.
+이전 Canva 사이트의 주소는 새 경로로 301 리다이렉트됩니다.
+서버 모드에서는 `next.config.ts`의 `redirects()`가, 정적 빌드에서는 `deploy/htaccess`가 처리합니다.
 
 ```
 /page-2      → /business
@@ -55,6 +72,8 @@ components/home/    홈 화면 섹션 컴포넌트
 content/site.ts     회사 정보·연락처·내비게이션 등 사이트 상수
 lib/                유틸리티
 public/images/      사진 및 그래픽 에셋
+scripts/            정적 빌드·이미지 최적화 스크립트
+deploy/htaccess     정적 호스팅(Apache)용 서버 설정
 ```
 
 ## 콘텐츠 수정 가이드
@@ -79,6 +98,5 @@ public/images/      사진 및 그래픽 에셋
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | 사이트의 정식 도메인. canonical URL, Open Graph, `sitemap.xml`에 사용됩니다. |
 
-설정하지 않으면 Vercel 프로덕션 도메인(`VERCEL_PROJECT_PRODUCTION_URL`)을 사용하고,
-그것도 없으면 `http://localhost:3000`으로 대체됩니다. **배포 도메인이 확정되면 반드시
-`NEXT_PUBLIC_SITE_URL`을 지정하세요.** 예시는 `.env.example`을 참고하세요.
+설정하지 않으면 `https://kmcaedu.co.kr` 을 사용합니다. www 주소를 대표로 쓰거나
+임시 도메인에서 확인할 때만 값을 지정하세요. 예시는 `.env.example`을 참고하세요.
