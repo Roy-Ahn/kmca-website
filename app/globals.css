@@ -12,9 +12,11 @@
   --color-ink-900: #0f1729;
   --color-ink-800: #1b2740;
   --color-ink-700: #2c3a58;
+  /* ink-500 is the lightest tone that clears 4.5:1 on both white and ink-50;
+     ink-400 only clears 3:1, so it is for large or decorative text. */
   --color-ink-600: #46557a;
-  --color-ink-500: #64729a;
-  --color-ink-400: #8b96b5;
+  --color-ink-500: #5b6890;
+  --color-ink-400: #7f8ba9;
   --color-ink-300: #b3bccf;
   --color-ink-200: #d5dbe6;
   --color-ink-100: #e8ecf3;
@@ -49,7 +51,14 @@
   --hairline: rgb(8 13 26 / 0.09);
   --hairline-strong: rgb(8 13 26 / 0.16);
   --hairline-invert: rgb(255 255 255 / 0.14);
+  --focus-ring: #1864c3;
   color-scheme: light;
+}
+
+/* Dark surfaces need a light focus ring; brand blue on near-black is too
+   faint to clear the 3:1 required of a focus indicator. */
+@utility on-dark {
+  --focus-ring: #ffffff;
 }
 
 @layer base {
@@ -98,9 +107,12 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-500);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: 2px;
+    /* Tailwind's transition-colors animates outline-color, which makes the
+       ring fade in. Keyboard focus has to be instant. */
+    transition-property: none;
   }
 }
 

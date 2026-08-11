@@ -2,7 +2,7 @@ import { ButtonLink } from "@/components/ui";
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-[70vh] items-center overflow-hidden bg-ink-950 py-32">
+    <section className="on-dark relative flex min-h-[70vh] items-center overflow-hidden bg-ink-950 py-32">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-32 top-0 h-[28rem] w-[28rem] rounded-full bg-brand-600/25 blur-[130px]"

@@ -127,7 +127,7 @@ export function MasterPlan() {
       </section>
 
       {/* The one saturated band on the page — it earns the emphasis. */}
-      <section className="bg-brand-600 py-16 text-white lg:py-20">
+      <section className="on-dark bg-brand-600 py-16 text-white lg:py-20">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
           <Reveal>
             <p className="text-title-1">

@@ -51,7 +51,7 @@ export default function ConsultingPage() {
                   <span className="flex h-12 w-12 items-center justify-center rounded-card bg-ink-950 text-white transition-colors duration-300 group-hover:bg-brand-500">
                     <pillar.Icon aria-hidden="true" className="h-6 w-6" />
                   </span>
-                  <span className="text-index text-ink-100">
+                  <span aria-hidden="true" className="text-index text-ink-400">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -67,7 +67,7 @@ export default function ConsultingPage() {
         </ol>
 
         <Reveal delay={100} className="mt-4">
-          <div className="rounded-card bg-ink-950 p-8 sm:p-12">
+          <div className="on-dark rounded-card bg-ink-950 p-8 sm:p-12">
             <Eyebrow tone="dark">Total Solution</Eyebrow>
             <p className="text-title-3 mt-5 max-w-3xl font-medium text-white">
               지역 상권 분석과 주요 타깃 파악 단계부터 개원 초기 인프라를 완벽히 구축하고

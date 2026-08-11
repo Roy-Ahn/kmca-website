@@ -42,7 +42,7 @@ export function SiteHeader() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
-        !solid && "border-b border-transparent bg-transparent",
+        !solid && "on-dark border-b border-transparent bg-transparent",
         // The open drawer is opaque, so the bar above it has to match.
         solid && !open && "border-b border-[var(--hairline)] bg-white/80 backdrop-blur-xl",
         open && "bg-white",
@@ -161,7 +161,7 @@ export function SiteHeader() {
                     )}
                   >
                     <span className="text-title-3">{item.label}</span>
-                    <span className="text-xs text-ink-400">{item.labelKo}</span>
+                    <span className="text-xs text-ink-500">{item.labelKo}</span>
                   </Link>
                 </li>
               );

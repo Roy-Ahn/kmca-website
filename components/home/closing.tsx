@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 
 export function Closing() {
   return (
-    <section className="relative isolate overflow-hidden bg-ink-950 py-24 lg:py-36">
+    <section className="on-dark relative isolate overflow-hidden bg-ink-950 py-24 lg:py-36">
       <Image
         src="/images/earth-night.jpg"
         alt=""

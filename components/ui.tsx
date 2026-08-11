@@ -161,7 +161,7 @@ export function Section({
       id={id}
       className={cn(
         size === "compact" ? "py-16 lg:py-20" : "py-20 lg:py-32",
-        tone === "dark" && "bg-ink-950 text-white",
+        tone === "dark" && "on-dark bg-ink-950 text-white",
         className,
       )}
     >
@@ -225,7 +225,7 @@ export function PageHero({
   description?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-ink-950 pb-16 pt-32 lg:pb-24 lg:pt-44">
+    <section className="on-dark relative overflow-hidden bg-ink-950 pb-16 pt-32 lg:pb-24 lg:pt-44">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-24 -top-40 h-[34rem] w-[34rem] rounded-full bg-brand-600/25 blur-[130px]"
@@ -251,7 +251,7 @@ export function PageHero({
 
 export function ContactCta() {
   return (
-    <section className="relative overflow-hidden bg-ink-950">
+    <section className="on-dark relative overflow-hidden bg-ink-950">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 -top-32 h-[28rem] w-[28rem] rounded-full bg-brand-600/25 blur-[130px]"

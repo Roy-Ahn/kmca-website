@@ -44,7 +44,7 @@ export default function HistoryPage() {
         description={`${site.legalName}는 우수한 인력과 교육 인프라를 바탕으로 최고의 인재를 양성하고 있으며 언제나 새롭고 발전적인 통합 교육 컨텐츠를 생산, 제공 하고 있습니다.`}
       />
 
-      <Section className="bg-ink-950">
+      <Section className="on-dark bg-ink-950">
         <Reveal className="overflow-hidden rounded-card">
           <div className="relative aspect-[16/9]">
             <Image

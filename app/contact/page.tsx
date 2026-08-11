@@ -31,7 +31,7 @@ export default function ContactPage() {
             <span className="font-semibold text-white">
               &ldquo;언제나 고객 입장에서 최선을 다합니다&rdquo;
             </span>{" "}
-            <span className="text-ink-400">({site.hours})</span>
+            <span className="text-ink-300">({site.hours})</span>
           </p>
         }
       />
@@ -59,7 +59,7 @@ export default function ContactPage() {
                 <dl className="divide-y divide-[var(--hairline)]">
                   {details.map((detail) => (
                     <div key={detail.label} className="flex gap-5 py-4 first:pt-0 last:pb-0">
-                      <dt className="w-24 shrink-0 text-sm font-semibold text-ink-400">
+                      <dt className="w-24 shrink-0 text-sm font-semibold text-ink-500">
                         {detail.label}
                       </dt>
                       <dd className="text-sm font-medium text-ink-900">{detail.value}</dd>

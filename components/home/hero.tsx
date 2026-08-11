@@ -23,7 +23,7 @@ const steps = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-ink-950 text-white">
+    <section className="on-dark relative overflow-hidden bg-ink-950 text-white">
       {/* A single soft brand glow instead of competing radial gradients. */}
       <div
         aria-hidden="true"
@@ -102,7 +102,8 @@ export function Hero() {
               delay={index * 80}
               className="relative pt-6 sm:pr-8"
             >
-              <span className="text-index block text-white/25">
+              {/* The list is ordered, so the numeral is a visual cue only. */}
+              <span aria-hidden="true" className="text-index block text-white/35">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <p className="text-title-3 mt-4 text-white">

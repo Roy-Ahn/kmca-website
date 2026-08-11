@@ -35,7 +35,7 @@ const areas = [
 
 export function BusinessAreas() {
   return (
-    <section className="bg-ink-950 py-20 text-white lg:py-32">
+    <section className="on-dark bg-ink-950 py-20 text-white lg:py-32">
       <div className="container-page">
         <SectionHeading
           tone="dark"
@@ -54,7 +54,10 @@ export function BusinessAreas() {
               delay={index * 60}
               className="group grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-4 border-b border-[var(--hairline-invert)] py-7 sm:grid-cols-[3.5rem_1fr_auto] sm:gap-x-8 lg:py-9"
             >
-              <span className="text-index text-white/20 transition-colors duration-300 group-hover:text-accent">
+              <span
+                aria-hidden="true"
+                className="text-index text-white/35 transition-colors duration-300 group-hover:text-accent"
+              >
                 {String(index + 1).padStart(2, "0")}
               </span>
 

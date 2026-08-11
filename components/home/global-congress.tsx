@@ -4,7 +4,7 @@ import { ButtonLink, SectionHeading } from "@/components/ui";
 
 export function GlobalCongress() {
   return (
-    <section className="bg-ink-950 py-20 text-white lg:py-32">
+    <section className="on-dark bg-ink-950 py-20 text-white lg:py-32">
       <div className="container-page">
         <SectionHeading
           tone="dark"

@@ -15,29 +15,29 @@ export function SiteFooter() {
 
           <dl className="mt-8 space-y-2.5 text-sm">
             <div className="flex gap-4">
-              <dt className="w-14 shrink-0 font-semibold text-ink-400">주소</dt>
+              <dt className="w-14 shrink-0 font-semibold text-ink-500">주소</dt>
               <dd className="text-ink-700">
                 {site.address.road} {site.address.detail}
               </dd>
             </div>
             <div className="flex gap-4">
-              <dt className="w-14 shrink-0 font-semibold text-ink-400">대표자</dt>
+              <dt className="w-14 shrink-0 font-semibold text-ink-500">대표자</dt>
               <dd className="text-ink-700">{site.ceo}</dd>
             </div>
             <div className="flex gap-4">
-              <dt className="w-14 shrink-0 font-semibold text-ink-400">문의</dt>
+              <dt className="w-14 shrink-0 font-semibold text-ink-500">문의</dt>
               <dd className="text-ink-700">
                 <a href={site.phoneHref} className="font-semibold hover:text-brand-600">
                   {site.phone}
                 </a>
-                <span className="ml-2 text-ink-400">({site.hours})</span>
+                <span className="ml-2 text-ink-500">({site.hours})</span>
               </dd>
             </div>
           </dl>
         </div>
 
         <nav aria-label="푸터 메뉴">
-          <h2 className="text-eyebrow text-ink-400">Sitemap</h2>
+          <h2 className="text-eyebrow text-ink-500">Sitemap</h2>
           <ul className="mt-5 grid grid-cols-2 gap-x-10 gap-y-3 text-sm font-medium text-ink-700 md:grid-cols-1">
             {navigation.map((item) => (
               <li key={item.href}>
@@ -51,7 +51,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-[var(--hairline)]">
-        <div className="container-page flex flex-col gap-2 py-6 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-page flex flex-col gap-2 py-6 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
           <p>{site.address.lot}</p>
           <p>Copyright © {site.shortName}. ALL RIGHTS RESERVED.</p>
         </div>
