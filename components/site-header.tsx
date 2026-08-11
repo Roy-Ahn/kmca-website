@@ -20,9 +20,17 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
 
@@ -34,9 +42,10 @@ export function SiteHeader() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
-        solid
-          ? "border-b border-[var(--hairline)] bg-white/80 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent",
+        !solid && "border-b border-transparent bg-transparent",
+        // The open drawer is opaque, so the bar above it has to match.
+        solid && !open && "border-b border-[var(--hairline)] bg-white/80 backdrop-blur-xl",
+        open && "bg-white",
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">

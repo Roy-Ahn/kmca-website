@@ -76,27 +76,27 @@ export default function BusinessPage() {
         description="국내 마케팅부터 글로벌 비즈니스, 메디컬 미디어 제작까지. 병의원이 필요로 하는 모든 단계를 하나의 팀이 책임집니다."
       />
 
-      <Section className="bg-ice-50">
-        <ul className="grid gap-6 lg:grid-cols-3">
+      <Section>
+        {/* Hairline columns instead of three floating cards — the content is a
+            comparison, so the shared baseline matters more than the container. */}
+        <ul className="grid gap-x-12 divide-y divide-[var(--hairline)] lg:grid-cols-3 lg:divide-x lg:divide-y-0">
           {groups.map((group, index) => (
             <Reveal
               as="li"
               key={group.title}
-              delay={index * 100}
-              className="flex flex-col rounded-2xl bg-white p-8 shadow-card transition duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
+              delay={index * 80}
+              className="py-10 first:pt-0 lg:px-10 lg:py-0 lg:first:pl-0 lg:last:pr-0"
             >
-              <div className="flex items-start justify-between gap-4">
-                <h2 className="text-2xl font-bold text-navy-800">{group.title}</h2>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-500">
-                  <group.Icon className="h-6 w-6" />
-                </span>
-              </div>
+              <span className="flex h-11 w-11 items-center justify-center rounded-card bg-brand-50 text-brand-500">
+                <group.Icon aria-hidden="true" className="h-5 w-5" />
+              </span>
+              <h2 className="text-title-2 mt-6 text-ink-950">{group.title}</h2>
 
-              <dl className="mt-8 space-y-6">
+              <dl className="mt-8 space-y-7">
                 {group.items.map((item) => (
-                  <div key={item.name} className="border-l-2 border-brand-500/25 pl-4">
-                    <dt className="text-base font-bold text-navy-950">{item.name}</dt>
-                    <dd className="mt-1 text-sm text-navy-950/65">{item.description}</dd>
+                  <div key={item.name}>
+                    <dt className="font-bold text-ink-900">{item.name}</dt>
+                    <dd className="mt-1.5 text-sm text-ink-600">{item.description}</dd>
                   </div>
                 ))}
               </dl>

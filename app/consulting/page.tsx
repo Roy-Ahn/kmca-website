@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CapIcon, ClipboardIcon, PinIcon, SparkIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
-import { ContactCta, PageHero, Section } from "@/components/ui";
+import { Card, ContactCta, Eyebrow, PageHero, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "신규 개원 토탈 솔루션",
@@ -42,39 +42,38 @@ export default function ConsultingPage() {
         description="최적의 입지선정과 전문적인 브랜딩까지! 지역 상권 분석과 주요 타깃 파악 단계부터 개원 초기 인프라를 완벽히 구축하고 실질적인 성장을 이끌어 드립니다."
       />
 
-      <Section className="bg-ice-50">
-        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <Section className="bg-ink-50">
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pillars.map((pillar, index) => (
-            <Reveal
-              as="li"
-              key={pillar.title}
-              delay={index * 90}
-              className="group relative overflow-hidden rounded-2xl bg-white p-8 text-center shadow-card transition duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
-            >
-              <span className="absolute right-5 top-4 text-4xl font-extrabold text-navy-950/5">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-navy-900 text-white transition duration-300 group-hover:bg-brand-500">
-                <pillar.Icon className="h-7 w-7" />
-              </span>
-              <h2 className="mt-6 text-lg font-bold text-navy-950">{pillar.title}</h2>
-              <ul className="mt-3 space-y-1 text-sm text-navy-950/60">
-                {pillar.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+            <Reveal as="li" key={pillar.title} delay={index * 70}>
+              <Card interactive className="group h-full p-7">
+                <div className="flex items-start justify-between">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-card bg-ink-950 text-white transition-colors duration-300 group-hover:bg-brand-500">
+                    <pillar.Icon aria-hidden="true" className="h-6 w-6" />
+                  </span>
+                  <span className="text-index text-ink-100">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h2 className="text-title-3 mt-7 text-ink-950">{pillar.title}</h2>
+                <ul className="mt-3 space-y-1 text-sm text-ink-600">
+                  {pillar.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </Card>
             </Reveal>
           ))}
         </ol>
 
-        <Reveal delay={120} className="mt-12 rounded-2xl bg-navy-900 p-8 sm:p-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent-cyan">
-            Total Solution
-          </p>
-          <p className="mt-4 max-w-3xl text-lg text-white sm:text-xl">
-            지역 상권 분석과 주요 타깃 파악 단계부터 개원 초기 인프라를 완벽히 구축하고
-            실질적인 성장을 이끌어 드립니다.
-          </p>
+        <Reveal delay={100} className="mt-4">
+          <div className="rounded-card bg-ink-950 p-8 sm:p-12">
+            <Eyebrow tone="dark">Total Solution</Eyebrow>
+            <p className="text-title-3 mt-5 max-w-3xl font-medium text-white">
+              지역 상권 분석과 주요 타깃 파악 단계부터 개원 초기 인프라를 완벽히 구축하고
+              실질적인 성장을 이끌어 드립니다.
+            </p>
+          </div>
         </Reveal>
       </Section>
 

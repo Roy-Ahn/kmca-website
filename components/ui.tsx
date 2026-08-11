@@ -251,22 +251,28 @@ export function PageHero({
 
 export function ContactCta() {
   return (
-    <section className="border-t border-[var(--hairline)] bg-ink-50">
-      <div className="container-page flex flex-col gap-8 py-16 lg:flex-row lg:items-end lg:justify-between lg:py-20">
+    <section className="relative overflow-hidden bg-ink-950">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 -top-32 h-[28rem] w-[28rem] rounded-full bg-brand-600/25 blur-[130px]"
+      />
+      <div className="container-page relative flex flex-col gap-8 py-16 lg:flex-row lg:items-end lg:justify-between lg:py-24">
         <Reveal className="max-w-xl">
-          <Eyebrow>Consulting</Eyebrow>
-          <h2 className="text-title-2 mt-5 text-ink-950">
+          <Eyebrow tone="dark">Consulting</Eyebrow>
+          <h2 className="text-title-2 mt-5 text-white">
             브랜딩부터 환자유입까지,
             <br />
             지금 상담받으세요
           </h2>
-          <p className="mt-4 text-ink-600">
+          <p className="mt-4 text-ink-300">
             {site.hours} · 병의원 상황에 맞는 맞춤 플랜을 제안해 드립니다.
           </p>
         </Reveal>
         <Reveal delay={80} className="flex flex-wrap gap-3">
-          <ButtonLink href={site.phoneHref}>{site.phone}</ButtonLink>
-          <ButtonLink href="/contact" variant="outline" arrow>
+          <ButtonLink href={site.phoneHref} tone="dark">
+            {site.phone}
+          </ButtonLink>
+          <ButtonLink href="/contact" tone="dark" variant="outline" arrow>
             오시는 길 보기
           </ButtonLink>
         </Reveal>

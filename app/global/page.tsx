@@ -40,14 +40,14 @@ export default function GlobalPage() {
         description="국가별 맞춤 현지화 전략으로 기획, 마케팅, 운영의 전 과정을 전담합니다. 단순 홍보를 넘어 의료기관의 해외 시장 진입부터 안정적인 정착까지 책임지는 글로벌 진출 솔루션을 제시합니다."
       />
 
-      <Section className="bg-white">
-        <ul className="grid gap-5 md:grid-cols-3">
+      <Section>
+        <ul className="grid gap-4 md:grid-cols-3">
           {photos.map((photo, index) => (
             <Reveal
               as="li"
               key={photo.src}
-              delay={index * 90}
-              className="overflow-hidden rounded-2xl shadow-card"
+              delay={index * 80}
+              className="group overflow-hidden rounded-card bg-ink-100"
             >
               <div className="relative aspect-[4/3]">
                 <Image
@@ -55,7 +55,7 @@ export default function GlobalPage() {
                   alt={photo.alt}
                   fill
                   sizes="(min-width: 768px) 30vw, 90vw"
-                  className="object-cover transition duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </div>
             </Reveal>
@@ -63,26 +63,24 @@ export default function GlobalPage() {
         </ul>
       </Section>
 
-      <Section className="bg-ice-50">
+      <Section className="bg-ink-50">
         <SectionHeading
           eyebrow="Process"
           title="해외 시장 진입부터 안정적 정착까지"
           description="현지 학회와 심포지엄을 직접 주관·기획해 온 네트워크를 바탕으로 단계별 진출 전략을 설계합니다."
         />
 
-        <ol className="mt-12 grid gap-5 md:grid-cols-3">
+        <ol className="mt-14 border-t border-[var(--hairline)]">
           {steps.map((step, index) => (
             <Reveal
               as="li"
               key={step.title}
-              delay={index * 90}
-              className="rounded-2xl border border-navy-950/8 bg-white p-8 transition duration-300 hover:border-brand-400/40 hover:shadow-card"
+              delay={index * 70}
+              className="grid gap-x-8 gap-y-2 border-b border-[var(--hairline)] py-7 sm:grid-cols-[6rem_minmax(0,18rem)_1fr] sm:items-baseline"
             >
-              <span className="text-sm font-bold tracking-[0.2em] text-brand-500">
-                STEP {index + 1}
-              </span>
-              <h3 className="mt-4 text-xl font-bold text-navy-950">{step.title}</h3>
-              <p className="mt-2 text-sm text-navy-950/65">{step.description}</p>
+              <span className="text-eyebrow text-brand-500">STEP {index + 1}</span>
+              <h3 className="text-title-3 text-ink-950">{step.title}</h3>
+              <p className="text-ink-600">{step.description}</p>
             </Reveal>
           ))}
         </ol>
