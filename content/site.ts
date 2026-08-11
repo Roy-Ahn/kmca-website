@@ -1,16 +1,13 @@
 /**
  * Canonical origin used for metadata, sitemap and JSON-LD.
- * Set NEXT_PUBLIC_SITE_URL once the production domain is decided; on Vercel the
- * production hostname is picked up automatically.
+ * Override with NEXT_PUBLIC_SITE_URL when serving from another hostname
+ * (staging, preview deployments, or a www-first setup).
  */
 export const siteUrl = (() => {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
   if (explicit) return explicit.replace(/\/$/, "");
 
-  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-  if (vercel) return `https://${vercel}`;
-
-  return "http://localhost:3000";
+  return "https://kmcaedu.co.kr";
 })();
 
 export const site = {
