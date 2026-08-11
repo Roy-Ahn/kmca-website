@@ -166,7 +166,12 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div id="mobile-menu" hidden={!open} className="bg-white lg:hidden">
+      {/* Short phones have to be able to reach the last item. */}
+      <div
+        id="mobile-menu"
+        hidden={!open}
+        className="max-h-[calc(100dvh-4rem)] overflow-y-auto bg-white lg:hidden"
+      >
         <nav aria-label="모바일 메뉴" className="container-page pb-6 pt-2">
           <ul className="flex flex-col">
             {navigation.map((item) => (

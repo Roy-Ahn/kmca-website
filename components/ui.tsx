@@ -1,4 +1,4 @@
-import type { ComponentProps, ElementType, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { ArrowRightIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/cn";
@@ -89,17 +89,15 @@ export function ButtonLink({
 
 export function Card({
   children,
-  as: Tag = "div",
   interactive = false,
   className,
 }: {
   children: ReactNode;
-  as?: ElementType;
   interactive?: boolean;
   className?: string;
 }) {
   return (
-    <Tag
+    <div
       className={cn(
         "rounded-card border border-[var(--hairline)] bg-white",
         interactive &&
@@ -108,7 +106,7 @@ export function Card({
       )}
     >
       {children}
-    </Tag>
+    </div>
   );
 }
 
@@ -132,24 +130,16 @@ export function SectionHeading({
   title,
   description,
   tone = "light",
-  align = "start",
   className,
 }: {
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   tone?: Tone;
-  align?: "start" | "center";
   className?: string;
 }) {
   return (
-    <Reveal
-      className={cn(
-        "max-w-2xl",
-        align === "center" && "mx-auto flex flex-col items-center text-center",
-        className,
-      )}
-    >
+    <Reveal className={cn("max-w-2xl", className)}>
       {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
       <h2
         className={cn("text-title-1 mt-5", tone === "light" ? "text-ink-950" : "text-white")}
