@@ -30,9 +30,10 @@ Node.js 20 이상을 권장합니다.
 ## 배포
 
 **Vercel에 배포되어 있습니다.** `main` 브랜치에 push하면 자동으로 재배포됩니다.
-현재 주소는 [kmca-website.vercel.app](https://kmca-website.vercel.app) 이며,
-`www.kmcaedu.co.kr` 연결은 DNS 설정만 남아 있습니다.
-단계별 안내는 **[DEPLOY.md](./DEPLOY.md)** 를 참고하세요.
+프로덕션 주소는 [www.kmcaedu.co.kr](https://www.kmcaedu.co.kr) 이며,
+백업 URL은 [kmca-website.vercel.app](https://kmca-website.vercel.app) 입니다.
+네임서버는 Vercel DNS입니다. 메일(MX) 복구와 apex→www 안내는
+**[DEPLOY.md](./DEPLOY.md)** 를 참고하세요.
 
 | 방법 | 명령 | 특징 |
 | --- | --- | --- |
