@@ -8,20 +8,8 @@ import { IMAGE_WIDTHS } from "./image-widths.mjs";
  */
 const isStaticExport = process.env.NEXT_OUTPUT === "export";
 
-// 사이트가 한 페이지로 합쳐졌으므로, 예전 Canva 주소와 이전 하위 페이지 주소를
-// 모두 홈의 해당 섹션으로 보냅니다.
-// 정적 빌드에서는 Next.js가 리다이렉트를 처리할 수 없으므로 deploy/htaccess가 대신합니다.
-const legacyRedirects = [
-  { source: "/page-2", destination: "/#business", permanent: true },
-  { source: "/page-3", destination: "/#solutions", permanent: true },
-  { source: "/-", destination: "/#global", permanent: true },
-  { source: "/contact-us", destination: "/#contact", permanent: true },
-  { source: "/business", destination: "/#business", permanent: true },
-  { source: "/consulting", destination: "/#solutions", permanent: true },
-  { source: "/global", destination: "/#global", permanent: true },
-  { source: "/history", destination: "/#global", permanent: true },
-  { source: "/contact", destination: "/#contact", permanent: true },
-];
+// 예전 Canva·하위 페이지 주소와 apex→www 호스트 통일은 proxy.ts 가 처리합니다.
+// 정적 빌드(Cafe24)에서는 Next.js proxy를 쓸 수 없으므로 deploy/htaccess가 대신합니다.
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -40,9 +28,6 @@ const nextConfig: NextConfig = {
       }
     : {
         images: { formats: ["image/avif", "image/webp"] },
-        async redirects() {
-          return legacyRedirects;
-        },
       }),
 };
 
